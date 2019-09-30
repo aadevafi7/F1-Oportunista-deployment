@@ -1,9 +1,12 @@
+// Theme
+
 $theme-colors: (
   "secondary": rgb(168, 54, 127),
-  "danger": #ff4136,
+  "danger": rgb(237, 132, 55),
   "primary": rgb(229, 243, 129)
 );
 
+$font-family-base: bernino-regular, Verdana, Arial, Geneva, sans-serif;
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 // register
