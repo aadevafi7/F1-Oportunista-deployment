@@ -9,3 +9,6 @@ verify_ssl = true
 django = "==2.2.5"
 
 [requires]
+
+[scripts]
+runserver = 'python3 idealista/manage.py runserver'

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../static/css/style.css">
+</head>
+
+<body>
+    <div class="vertical-center">
+        <div class="container max-width-330">
+
+            <div class="container col">
+                <div class="text-center">
+                    <!-- TODO hacer que funcione bien con django -->
+                    <img src="../../static/img/idealista.png" class="img-fluid" alt="Responsive image">
+                </div>
+                <div style>
+                    <h2>Nuevo usuario</h2>
+                </div>
+                <form id="formulario">
+                    <div>
+                        <div class="form-group">
+                            <label for="email">Email de acceso</label>
+
+                            <input type="email" class="form-control rounded-0 " id="email" required>
+                            <div class="invalid-feedback">
+                                ! Venga, escribe un email ;-)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control rounded-0 " id="nombre" required>
+                            <div class="invalid-feedback">
+                                ! Venga, escribe tu nombre ;-)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contraseña">Contraseña</label>
+                            <input type="password" id="contraseña" class="form-control rounded-0 " require>
+                            <span id="contraseñaHelp" class="form-text text-muted">Utiliza al menos 4 caracteres, letras
+                                y
+                                números</span>
+                            <div class="invalid-feedback">
+                                ! Venga, escribe la contraseña ;-)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input " id="cbox1">
+                            <label class="form-check-label" for="privacidad-cbox">Aceptar la política de
+                                privacidad</label>
+
+                            <div class="invalid-feedback">
+                                ! Tienes que aceptar la política de privacidad para poder continuar
+                            </div>
+
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="cbox2">
+                            <label class="form-check-label" for="cbox2">
+                                Recibir información de inmuebles,
+                                noticias y otras comunicaciones
+                                promocionales desde idealista,
+                                idealista/data, idealista/hipotecas o
+                                Rentalia basadas en tu perfil.
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-secondary btn-block rounded-0" type="submit">Ok, ¡vamos para dentro!</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
