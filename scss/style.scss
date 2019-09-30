@@ -1,8 +1,8 @@
 
 $theme-colors: (
-  "primary": rgb(168,54,127),
+  "secondary": rgb(168,54,127),
   "danger": #ff4136,
-  "secondary": rgb(229,243,129)
+  "primary": rgb(229,243,129)
 );
 
 @import "../node_modules/bootstrap/scss/bootstrap";
