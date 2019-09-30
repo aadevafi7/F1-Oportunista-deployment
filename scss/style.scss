@@ -1,8 +1,50 @@
-
 $theme-colors: (
-  "secondary": rgb(168,54,127),
+  "secondary": rgb(168, 54, 127),
   "danger": #ff4136,
-  "primary": rgb(229,243,129)
+  "primary": rgb(229, 243, 129)
 );
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+// register
+$register-width: 390px;
+@media (max-width: 575.98px) {
+  .container.max-width-330 {
+    max-width: $register-width !important;
+  }
+}
+@media (min-width: 576px) {
+  .container.max-width-330 {
+    max-width: $register-width !important;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .container.max-width-330 {
+    max-width: $register-width !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .container.max-width-330 {
+    max-width: $register-width !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container.max-width-330 {
+    max-width: $register-width !important;
+  }
+}
+
+.container.max-width-330 {
+  min-width: $register-width !important;
+}
+.vertical-center {
+  min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
