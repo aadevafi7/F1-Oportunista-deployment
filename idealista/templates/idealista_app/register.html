@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body id="formulario">
@@ -23,20 +24,20 @@
         </div>
 
 
-        <form id="formulario">
+        <form>
             <div>
-                <div>
-                    <span> Email de acceso </span>
+                <div class="form-group">
+                    <label for="email">Email de acceso</label>
 
-                    <input type="text" name="Email" required>
+                    <input type="email" class="form-control" id="email" required>
                 </div>
-                <div>
-                    <span>Nombre</span>
-                    <input type="text" name="Nombre" required>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" required>
                 </div>
-                <div>
-                    <span>Contraseña</span>
-                    <input type="password" name="Contraseña" require>
+                <div class="form-group">
+                    <label for="contraseña">Contraseña</label>
+                    <input type="password" id="contraseña" class="form-control" require>
                 </div>
             </div>
 
