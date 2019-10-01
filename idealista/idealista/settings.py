@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'idealista_app.apps.IdealistaAppConfig'
-    'django_static_fontawesome'
+   'idealista_app.apps.IdealistaAppConfig'
+
 ]
 
 
