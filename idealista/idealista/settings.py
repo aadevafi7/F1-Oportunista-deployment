@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'idealista_app.apps.IdealistaAppConfig'
+    'idealista_app.apps.IdealistaAppConfig',
 ]
 
 MIDDLEWARE = [
