@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'idealista_app.apps.IdealistaAppConfig'
+    'django_static_fontawesome'
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
