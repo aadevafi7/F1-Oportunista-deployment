@@ -8,5 +8,16 @@ urlpatterns =[
         regex=r'^register/$',
         view=views.register_user,
         name='register_user'
+    ),
+
+    url(
+        regex=r'^home/$',
+        view=views.homePage,
+        name='homePage'
+    ),
+    url(
+        regex=r'^submit/$',
+        view=views.submit,
+        name='submit'
     )
 ]
