@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "14314a891ddeec7d5b2fb1153573cb167688706b4a0549ec02ae4700112b850d"
+            "sha256": "d6e2a6aa1962b68620e24b1402d86a1f78ed1f6e101f1981f25345be099e5832"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -22,12 +22,20 @@
             "index": "pypi",
             "version": "==2.2.5"
         },
+        "django-widget-tweaks": {
+            "hashes": [
+                "sha256:65c960f3d75008a285e4b10f4d21f9eae4160fd77a0f6097ad545185f8648bd6",
+                "sha256:f2e2c9c9be1ccc59061e248dcc2144f4906d594abe1a563902f4bdf6aa14e432"
+            ],
+            "index": "pypi",
+            "version": "==1.4.5"
+        },
         "pytz": {
             "hashes": [
-                "sha256:26c0b32e437e54a18161324a2fca3c4b9846b74a8dccddd843113109e1116b32",
-                "sha256:c894d57500a4cd2d5c71114aaab77dbab5eabd9022308ce5ac9bb93a60a6f0c7"
+                "sha256:1c557d7d0e871de1f5ccd5833f60fb2550652da6be2693c1e02300743d21500d",
+                "sha256:b02c06db6cf09c12dd25137e563b31700d3b80fcc4ad23abb7a315f2789819be"
             ],
-            "version": "==2019.2"
+            "version": "==2019.3"
         },
         "sqlparse": {
             "hashes": [

@@ -1,10 +1,11 @@
+{% load widget_tweaks %}
 <doctype HTML>
 <html>
     <head>
-
+        <link rel="stylesheet" href="../../static/css/style.css">
     </head>
     <body>
-        <form>
+        <!--form>
             <div class="form-group">
                 <label for="email">Email de acceso</label>
                 <input type="email" class="form-control rounded-0" id="email" required>
@@ -28,8 +29,24 @@
             <button class="btn btn-secondary btn-block rounded-0" type="submit">
                 Entrar en oportunista
             </button>
-        </form>
+        </form-->
+        <form action="/login/" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {% render_field field class="form-control rounded-0" %}
+                {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </div>
 
+            {% endfor %}
+            <button class="btn btn-secondary btn-block rounded-0" type="submit" value="enviar">
+                Entrar en oportunista
+            </button>
         <div>
             ¿No eres usuario de oportunista? <a href="#">Apúntate como particular</a>
         </div>
