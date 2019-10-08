@@ -19,5 +19,9 @@ urlpatterns =[
         regex=r'^submit/$',
         view=views.submit,
         name='submit'
+    url(
+        regex=r'^login/',
+        view=views.login,
+        name='login'
     )
 ]
