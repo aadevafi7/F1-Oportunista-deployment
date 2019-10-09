@@ -23,16 +23,23 @@ class RegisterForm(forms.Form):
         noticias y otras comunicaciones
         promocionales desde idealista,
         idealista/data, idealista/hipotecas o
-        Rentalia basadas en tu perfil.""")
+        Rentalia basadas en tu perfil.""", required=False)
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(RegisterForm, self).__init__(*args, **kwargs)
 
-    def clean_email_address(self):
-        email = self.cleaned_data.get('email_address')
-        if self.user and self.user.email == email:
-            return email
+    def validate(self, value):
+        """Check if value consists only of valid emails."""
+        # Use the parent's handling of required fields, etc.
+        super().validate(value)
+        self.validate_email(value.email)
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        print(f'Validating {email}.')
+
         if user_exists(email):
-            raise forms.ValidationError(u'That email address already exists.')
+            print(f'Email already exists.')
+            raise forms.ValidationError('Este email ya está registrado.')
         return email

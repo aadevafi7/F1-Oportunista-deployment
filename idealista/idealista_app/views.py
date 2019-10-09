@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 from .forms import LoginForm, RegisterForm
 
-from .dummies import add_user
+from .dummies import add_user, users
 # Create your views here.
 
 
@@ -12,18 +12,19 @@ def register_user(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
             username = form.cleaned_data.get('name')
-            email = form.clean_email_address()
+            email = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password')
+            # TODO make it work with model
             add_user(username, email, raw_password)
-            return redirect('home')
+            return redirect('idealista_app:homePage')
     else:
         form = RegisterForm()
-        return render(request, 'idealista_app/register.html', {'form': form})
+    return render(request, 'idealista_app/register.html', {'form': form})
 
 
 def homePage(request):
+    print(users)
     return render(request, 'idealista_app/home.html')
 
 
