@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, PublishAddForm
 
 from .dummies import add_user, users
 # Create your views here.
@@ -37,3 +37,15 @@ def login(request):
     else:
         form = LoginForm()
         return render(request, 'idealista_app/login.html', {'form': form})
+
+
+def publish_add(request):
+    if request.method == 'POST':
+        form = PublishAddForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            return redirect('idealista_app:homePage')
+    else:
+        form = PublishAddForm()
+    return render(request, 'idealista_app/publish-add.html', {'form': form})

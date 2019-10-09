@@ -21,5 +21,10 @@ urlpatterns = [
         regex=r'^login/',
         view=views.login,
         name='login'
+    ),
+    url(
+        regex=r'^publish-add/',
+        view=views.publish_add,
+        name='publishAdd'
     )
 ]
