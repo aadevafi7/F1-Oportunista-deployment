@@ -12,11 +12,8 @@ def register_user(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('name')
-            email = form.cleaned_data.get('email')
-            raw_password = form.cleaned_data.get('password')
-            # TODO make it work with model
-            add_user(username, email, raw_password)
+            form.save()
+
             return redirect('idealista_app:homePage')
     else:
         form = RegisterForm()

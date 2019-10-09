@@ -1,5 +1,6 @@
 
 from django import forms
+from django.contrib.auth.models import User
 
 from .dummies import add_user, user_exists
 
@@ -37,9 +38,21 @@ class RegisterForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data['email']
-        print(f'Validating {email}.')
 
-        if user_exists(email):
-            print(f'Email already exists.')
-            raise forms.ValidationError('Este email ya está registrado.')
-        return email
+        try:
+            match = User.objects.get(email=email)
+        except User.DoesNotExist:
+            # Unable to find a user, this is fine
+            return email
+        raise forms.ValidationError('Este email ya está registrado.')
+
+    def save(self, commit=True):
+        name = self.cleaned_data.get('name')
+        email = self.cleaned_data.get('email')
+        raw_password = self.cleaned_data.get('password')
+        recibir_info = self.cleaned_data.get('recibir_info')
+
+        user = User.objects.create_user(
+            name, email, raw_password
+        )
+        user.save()
