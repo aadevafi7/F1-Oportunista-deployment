@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from .forms import LoginForm, RegisterForm, PublishAddForm
 
 from .dummies import add_user, users
+
+
 # Create your views here.
 
 
@@ -44,7 +46,6 @@ def publish_add(request):
         form = PublishAddForm(request.POST)
         if form.is_valid():
             form.save()
-
             return redirect('idealista_app:homePage')
     else:
         form = PublishAddForm()

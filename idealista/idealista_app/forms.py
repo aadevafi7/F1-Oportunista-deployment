@@ -75,7 +75,7 @@ class PublishAddForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
-        super(RegisterForm, self).__init__(*args, **kwargs)
+        super(PublishAddForm, self).__init__(*args, **kwargs)
 
     def validate(self, value):
         """Check if value consists only of valid emails."""
@@ -85,7 +85,6 @@ class PublishAddForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data['email']
-
         try:
             match = User.objects.get(email=email)
         except User.DoesNotExist:
