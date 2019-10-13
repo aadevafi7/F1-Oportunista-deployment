@@ -14,7 +14,6 @@ def register_user(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-
             return redirect('idealista_app:homePage')
     else:
         form = RegisterForm()
@@ -28,9 +27,11 @@ def homePage(request):
         print("User is not logged in")
     return render(request, 'idealista_app/home.html')
 
+
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/')
+
 
 def submit(request):
     return render(request, 'idealista_app/submit.html')
@@ -38,6 +39,7 @@ def submit(request):
 
 def login(request):
     if request.method == 'POST':
+        print(request.POST)
         form = LoginForm(request.POST)
         if form.is_valid():
             user = auth.authenticate(
@@ -45,9 +47,9 @@ def login(request):
                 password=form.cleaned_data.get('password'))
             if user is not None and user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect('/')
+                return redirect('idealista_app:homePage')
             else:
                 return HttpResponse('Unauthorized', status=401)
     else:
         form = LoginForm()
-        return render(request, 'idealista_app/login.html', {'form': form})
+    return render(request, 'idealista_app/login.html', {'form': form})
