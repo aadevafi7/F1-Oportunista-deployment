@@ -9,7 +9,7 @@ class LoginForm(forms.Form):
     username = forms.EmailField(label='Email de acceso')
     password = forms.CharField(
         widget=forms.PasswordInput, label='Tu contraseña')
-    remember = forms.BooleanField(label='Recordar tus datos')
+    remember = forms.BooleanField(label='Recordar tus datos', required=False)
 
 
 class RegisterForm(forms.Form):
@@ -48,11 +48,13 @@ class RegisterForm(forms.Form):
 
     def save(self, commit=True):
         name = self.cleaned_data.get('name')
+
+        # using email as username
         email = self.cleaned_data.get('email')
         raw_password = self.cleaned_data.get('password')
         recibir_info = self.cleaned_data.get('recibir_info')
 
         user = User.objects.create_user(
-            name, email, raw_password
+            email, email, raw_password
         )
         user.save()
