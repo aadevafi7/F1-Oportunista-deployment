@@ -3,7 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../../static/css/style.css">
+
+    {% load widget_tweaks %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+
 </head>
 
 <body>
@@ -18,45 +22,51 @@
                 <div style>
                     <h2>Nuevo usuario</h2>
                 </div>
-                <form id="formulario">
+                <form id="formulario" method="POST">
+                    {% csrf_token %}
                     <div>
                         <div class="form-group">
-                            <label for="email">Email de acceso</label>
+                            {{ form.email.label_tag }}
+                            {% if form.email.errors %}
+                            {% render_field form.email class="form-control rounded-0 is-invalid" %}
+                            {% else %}
+                            {% render_field form.email class="form-control rounded-0" %}
+                            {% endif %}
 
-                            <input type="email" class="form-control rounded-0 " id="email" required>
+                            {% for error in form.email.errors %}
                             <div class="invalid-feedback">
-                                ! Venga, escribe un email ;-)
+                                {{ error }}
                             </div>
+                            {% endfor %}
                         </div>
                         <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control rounded-0 " id="nombre" required>
+                            {{ form.name.label_tag }}
+                            {% render_field form.name class="form-control rounded-0" %}
+                            {% for error in form.name.errors %}
                             <div class="invalid-feedback">
-                                ! Venga, escribe tu nombre ;-)
+                                {{ error }}
                             </div>
+                            {% endfor %}
                         </div>
                         <div class="form-group">
-                            <label for="contraseña">Contraseña</label>
-                            <input type="password" id="contraseña" class="form-control rounded-0 " require>
-                            <span id="contraseñaHelp" class="form-text text-muted">Utiliza al menos 4 caracteres, letras
-                                y
-                                números</span>
+                            {{ form.password.label_tag }}
+                            {% render_field form.password class="form-control rounded-0" %}
+                            {% for error in form.password.errors %}
                             <div class="invalid-feedback">
-                                ! Venga, escribe la contraseña ;-)
+                                {{ error }}
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input " id="cbox1">
-                            <label class="form-check-label" for="privacidad-cbox">Aceptar la política de
-                                privacidad</label>
-
+                            {% render_field form.aceptar_privacidad class="form-check-input" %}
+                            {{ form.aceptar_privacidad.label_tag }}
                             <div class="invalid-feedback">
                                 ! Tienes que aceptar la política de privacidad para poder continuar
                             </div>
-
                         </div>
+
 
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="cbox2">

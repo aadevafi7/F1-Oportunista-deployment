@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url,include
-
+from django.views.generic.base import RedirectView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^',include(('idealista_app.urls','idealista_app'),namespace='idealista_app'))
-
+   url(r'^',include(('idealista_app.urls','idealista_app'),namespace='idealista_app')),
+    url(r'^$',RedirectView.as_view(url="/home/"))
 ]

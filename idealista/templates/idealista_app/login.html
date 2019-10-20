@@ -1,0 +1,54 @@
+<meta charset="utf-8">
+<html>
+
+<head>
+    {% load widget_tweaks %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+</head>
+
+<body>
+    <div class="vertical-center">
+        <div class="container max-width-330">
+            <div class="container col">
+                <div>
+
+                    <h2>Acceso a usuarios</h2>
+                </div>
+                <div>
+                    <form action="/login/" method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        {% if field.name != "remember" %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {% render_field field class="form-control rounded-0" %}
+                            {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+
+
+                        <div class="form-check">
+                            {% render_field form.remember class="form-check-input" %}
+                            {{ form.remember.label_tag }}
+                        </div>
+
+                        <button class="btn btn-secondary btn-block rounded-0" type="submit" value="enviar">
+                            Entrar en oportunista
+                        </button>
+                    </form>
+                </div>
+                <div>
+                    ¿No eres usuario de oportunista? <a class="text-info" href="{% url 'idealista_app:register_user' %}">Apúntate como particular</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
