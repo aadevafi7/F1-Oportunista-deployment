@@ -9,7 +9,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "scss": "node-sass scss -o idealista/static/css"
+    "scss": "node-sass scss -o idealista/static/css",
+    "js": "cp node_modules/bootstrap/dist/js/bootstrap.js idealista/static/js"
   },
   "repository": {
     "type": "git",
