@@ -32,6 +32,15 @@
             </div>
 
             <div class="col-auto">
+              {% if user.is_active %}
+              <a href="{% url 'idealista_app:logout' %}">
+                <button class="btn"><i class="fa fa-user text-secondary"></i>
+                  <small>
+                    Cerrar sesión
+                  </small>
+                </button>
+              </a>
+              {% else %}
               <a href="{% url 'idealista_app:login' %}">
                 <button class="btn"><i class="fa fa-user text-secondary"></i>
                   <small>
@@ -39,6 +48,7 @@
                   </small>
                 </button>
               </a>
+              {% endif %}
             </div>
 
             <div class="col-auto">
