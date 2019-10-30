@@ -40,7 +40,7 @@ class RegisterTest(TestCase):
         self.credentials = {
             'email': 'test@testmail.com',
             'password': '1234abcd',
-            'name': 'test',
+            'name': 'TestName',
             'aceptar_privacidad': 'on',
         }
 
@@ -58,6 +58,7 @@ class RegisterTest(TestCase):
             user = User.objects.get(username=self.credentials['email'])
             self.assertEqual(user.username, self.credentials['email'])
             self.assertEqual(user.email, self.credentials['email'])
+            self.assertEqual(user.first_name, self.credentials['name'])
             self.assertTrue(user.check_password(self.credentials['password']))
 
         except User.DoesNotExist:
