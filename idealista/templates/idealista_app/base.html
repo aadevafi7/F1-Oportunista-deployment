@@ -12,7 +12,7 @@
 <body style="padding-top: 65px;">
     <!-- Only god knows why 65px padding is required -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-primary">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{% url 'idealista_app:homePage' %}">
             <img src="{% static "img/logo.svg" %}" width="200" height="30" class="d-inline-block align-top"
                 alt="oportunista">
         </a>
@@ -22,6 +22,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav ml-auto">
+                <button class="btn btn-outline-secondary rounded text-black">
+                    <small>
+                        <i class="fas fa-thumbtack"></i>
+                        Pon tu anuncio gratis
+                    </small>
+                </button>
                 <li class="nav-item active" href="#">
                     <a class="nav-link" href="#">Tus favoritos</a>
                 </li>
@@ -81,10 +87,10 @@
                 </ul>
             </div>
             <div class="col">
-                    <p class="text-muted">
-                            <b>Otros países</b>
-                        </p>
-        
+                <p class="text-muted">
+                    <b>Otros países</b>
+                </p>
+
                 <ul class="list-unstyled">
                     <li><a href="#" class="text-info"> idealista Italia</a></li>
                     <li><a href="#" class="text-info"> idealista Portugal</a></li>
