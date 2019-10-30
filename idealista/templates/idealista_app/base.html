@@ -1,0 +1,59 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/8593a80e63.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div id="header" class="row ">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-primary">
+                <a class="navbar-brand" href="#">
+                    <img src="{% static "img/logo.svg" %}" width="200" height="30" class="d-inline-block align-top"
+                        alt="oportunista">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active" href="#">
+                            <a class="nav-link" href="#">Tus favoritos</a>
+                        </li>
+                        <li class="nav-item" href="#">
+                            <a class="nav-link" href="#">Tus búsquedas</a>
+                        </li>
+                        <li class="nav-item" href="#">
+                            <a class="nav-link" href="#">Tus mensajes</a>
+                        </li>
+                        <li class="nav-item" href="#">
+
+                            <a class="nav-link" href="#"><i class="fas fa-user-circle"></i> { nombre }</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+
+        <div id="footer" class="row bg-light">
+            FOOTER
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="{% static "js/bootstrap.js" %}"></script>
+</body>
+
+</html>

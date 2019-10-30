@@ -27,4 +27,9 @@ urlpatterns = [
         view=views.logout,
         name='logout'
     ),
+        url(
+        regex=r'^placeholder/',
+        view=views.placeholder,
+        name='logout'
+    ),
 ]
