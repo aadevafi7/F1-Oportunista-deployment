@@ -47,3 +47,7 @@ class property_pics(models.Model):
     file = models.ImageField
     order = models.IntegerField
     property = models.ForeignKey(property, on_delete=models.CASCADE)
+
+class UserProfile(models.Model):
+    # This field is required.
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
