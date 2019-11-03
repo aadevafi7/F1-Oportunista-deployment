@@ -28,6 +28,7 @@ urlpatterns = [
         name='logout'
     ),
     url(
+<<<<<<< HEAD
         regex=r'^placeholder/',
         view=views.placeholder,
         name='placeholder'
@@ -47,4 +48,10 @@ urlpatterns = [
         view=views.publicarAnuncio3,
         name='publicarAnuncio3'
     )
+=======
+        regex=r'^profile/',
+        view=views.profile,
+        name='profile'
+    ),
+>>>>>>> Now sending profile information
 ]

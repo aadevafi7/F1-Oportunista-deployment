@@ -48,6 +48,15 @@ class property_pics(models.Model):
     order = models.IntegerField
     property = models.ForeignKey(property, on_delete=models.CASCADE)
 
+
 class UserProfile(models.Model):
     # This field is required.
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+
+models.signals.post_save.connect(create_user_profile, sender=User)
