@@ -29,9 +29,9 @@ def register_user(request):
 
 def homePage(request):
     if request.user.is_authenticated:
-        print("User is logged in")
+        pass
     else:
-        print("User is not logged in")
+        pass
     return render(request, 'idealista_app/home.html')
 
 
@@ -59,3 +59,11 @@ def login(request):
     else:
         form = LoginForm()
     return render(request, 'idealista_app/login.html', {'form': form})
+
+
+def profile(request):
+    if request.user.is_authenticated:
+        profile = request.user.userprofile
+        return render(request, 'idealista_app/home.html', {'profile': profile})
+    else:
+        return HttpResponse('Unauthorized', status=401)

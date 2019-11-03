@@ -27,4 +27,9 @@ urlpatterns = [
         view=views.logout,
         name='logout'
     ),
+    url(
+        regex=r'^profile/',
+        view=views.profile,
+        name='profile'
+    ),
 ]
