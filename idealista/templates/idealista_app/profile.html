@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label for="name">Nombre</label>
                 <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp"
-                    placeholder="{{ user.name }}">
+                    placeholder="{{ user.first_name }}">
                 <small id="nombreHelp" class="form-text text-muted">Aparecerá cuando escribas a otros usuarios o
                     publiques tu anuncio</small>
             </div>
@@ -31,7 +31,7 @@
         <div class="row py-3">
             <div class="col">
                 <div class="row">
-                    <h3>{{ user.name }}</h3>
+                    <h3>{{ user.first_name }}</h3>
                 </div>
                 <div class="row"><i class="fas fa-user-circle fa-7x text-muted"></i></div>
                 <div class="row"><a href="#" class="text-info">Añadir foto</a></div>
