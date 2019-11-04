@@ -9,12 +9,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-1">
-                <a href="#" class="text-muted">Perfil</a>
-            </div>
-            <div class="col-auto">
-                <a href="#" class="text-secondary">Datos de acceso</a>
-            </div>
+            {% include 'idealista_app/profile/selector.html' with selected="datos" %}
         </div>
         <hr>
         
