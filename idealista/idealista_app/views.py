@@ -72,6 +72,6 @@ def login(request):
 def profile(request):
     if request.user.is_authenticated:
         profile = request.user.userprofile
-        return render(request, 'idealista_app/profile.html', {'profile': profile})
+        return render(request, 'idealista_app/profile/profile.html', {'profile': profile})
     else:
         return HttpResponse('Unauthorized', status=401)
