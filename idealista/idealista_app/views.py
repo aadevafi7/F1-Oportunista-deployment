@@ -43,6 +43,12 @@ def logout(request):
 def submit(request):
     return render(request, 'idealista_app/submit.html')
 
+def publicarAnuncio(request):
+    return render(request, 'idealista_app/publicar-anuncio.html')
+def publicarAnuncio2(request):
+    return render(request, 'idealista_app/publicar-anuncio2.html')
+def publicarAnuncio3(request):
+    return render(request, 'idealista_app/publicar-anuncio3.html')
 
 def login(request):
     if request.method == 'POST':
