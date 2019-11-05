@@ -47,14 +47,14 @@ class RegisterForm(forms.Form):
         raise forms.ValidationError('Este email ya está registrado.')
 
     def save(self, commit=True):
-        name = self.cleaned_data.get('name')
 
         # using email as username
         email = self.cleaned_data.get('email')
+        name = self.cleaned_data.get('name')
         raw_password = self.cleaned_data.get('password')
         recibir_info = self.cleaned_data.get('recibir_info')
 
         user = User.objects.create_user(
-            email, email, raw_password
+            email, email, raw_password, first_name=name
         )
         user.save()
