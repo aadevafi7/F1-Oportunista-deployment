@@ -2,31 +2,202 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="utf-8">
+  {% load static %}
+
+  <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/8593a80e63.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div class="container max-width-300">
-        <!-- home top bar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
-            <a class="navbar-brand" href="#">
-                <img src="{% static 'img/idealista.png' %}" class="img-fluid" alt="oportunista" height="50%"
-                    width="50%">
+  <div class="container">
+    <div class="row py-3" id="header">
+      <div class="col-4">
+        <div class="row">
+          <img src="{% static "img/logo.svg" %}" width="300px">
+        </div>
+      </div>
+
+      <div class="col-8">
+        <div class="container text-justify-end">
+          <div class="row ">
+            <div class="col-auto">
+              <a href="{% url 'idealista_app:publicarAnuncio' %}">
+              <button class="btn btn-outline-dark rounded text-black">
+                <i class="fas fa-thumbtack text-secondary"></i>
+                <small>
+                  Pon tu anuncio gratis
+                </small>
+              </button>
             </a>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'idealista_app:login' %}">
-                        <i class=" fa fa-user text-secondary"></i>
-                        <span class="text-black">Acceso Usuarios</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+            </div>
+
+            <div class="col-auto">
+              {% if user.is_authenticated %}
+              <a href="{% url 'idealista_app:logout' %}">
+                <button class="btn"><i class="fa fa-user text-secondary"></i>
+                  <small>
+                    Cerrar sesión
+                  </small>
+                </button>
+              </a>
+              {% else %}
+              <a href="{% url 'idealista_app:login' %}">
+                <button class="btn"><i class="fa fa-user text-secondary"></i>
+                  <small>
+                    Acceso Usuarios
+                  </small>
+                </button>
+              </a>
+              {% endif %}
+            </div>
+
+            <div class="col-auto">
+              <select class="custom-select">
+                <option data-content='<span class="flag-icon flag-icon-us"></span> Español'>Español</option>
+                <option data-content='<span class="flag-icon flag-icon-mx"></span> English'>English</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <div class="container max-width-540">
+      <form class="bg-primary px-1">
+        <div class="row pt-3 px-1 justify-content-center">
+          <h2>Haz caso a tu intuición</h2>
+        </div>
+        <div class="row">
+          <!-- transparent url('../../static/img/imgcasa2.png') no-repeat center center /cover; height: 500px; -->
+          <div class="col">
+            <select class="custom-select rounded-0" multiple style="height: 240px;">
+              <option selected>Comprar</option>
+              <option value="Alquilar">Alquilar</option>
+              <option value="Compartir">Compartir</option>
+            </select>
+          </div>
+          <div class="col">
+            <select class="custom-select rounded-0" multiple style="height: 240px;">
+              <option selected>Obra nueva</option>
+              <option value="Alquilar">Viviendas</option>
+              <option value="Compartir">Vacacional</option>
+
+              <option value="Compartir">Habitación</option>
+              <option value="Alquilar">Oficinas</option>
+              <option value="Compartir">Locales o naves</option>
+
+              <option value="Alquilar">Garajes</option>
+              <option value="Alquilar">Trasteros</option>
+              <option value="Compartir">Edificios</option>
+
+              <option value="Alquilar">Terrenos</option>
+
+            </select>
+          </div>
+
+          <div class="col">
+            <select class="custom-select rounded-0" multiple style="height: 240px;">
+              <option selected>Barcelona</option>
+            </select>
+          </div>
+        </div>
+        <div class="row py-2 px-1 justify-content-end">
+          <div class="col-4">
+            <button class="btn btn-secondary btn-block rounded-0" type="search"><strong>Buscar</strong></button>
+          </div>
+
+        </div>
+
+      </form>
+
+      <div class="row py-3 px-3">
+        <div class="col-6">
+          <div class="row">
+            <h5> <strong>1.767.221 anuncios, 20.120 nuevos ayer</strong></h5>
+          </div>
+
+          <div class="row">
+            Tus dos primeros anuncios son gratis
+          </div>
+
+        </div>
+        <div class="col-4">
+          <div class="row">
+            <button class="btn btn-secondary btn-block rounded-0" type="submit">
+              <strong>Poner anuncio</strong>
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row py-3 px-3">
+        <form id="busqueda">
+          <div class="row">
+            <div class="col">
+              <h5> <strong>Búsqueda por texto libre</strong></h5>
+            </div>
+          </div>
+
+          <div class="row justify-content-start">
+            <div class="form-group col-auto">
+              <input type="radio" name="radio-compartir" value="bool">
+              <label class="form-check-label" for="radio-compartir">
+                Compartir
+              </label>
+            </div>
+            <div class="form-group col-auto">
+              <input type="radio" name="radio-alquilar" value="bool">
+              <label class="form-check-label" for="radio-alquilar">
+                Alquilar
+              </label>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <select class="form-control">
+                <option>Selecciona...</option>
+                <option>Obra nueva</option>
+                <option>Viviendas</option>
+                <option>Habitación</option>
+                <option>Oficinas</option>
+                <option>Locales o naves</option>
+                <option>Garajes</option>
+                <option>Trasteros</option>
+                <option>Edificios</option>
+                <option>Terrenos</option>
+              </select>
+            </div>
+
+            <div class="col-6">
+              <input type="text" class="form-control" id="location" aria-describedby="locationHelp"
+                placeholder="Escribe dónde buscas">
+              <small id="location" class="form-text text-muted">
+                También puedes buscar por característica,teléfono...
+              </small>
+            </div>
+
+            <div class="col-2">
+              <button class="btn btn-light" type="submit"><strong>Buscar</strong></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <br><br><br><br><br>
+  <footer class="d-flex flex-column footer font-small">
+    <div class="footer-copyright text-center py-3 bg-light">
+      <a>Oportunista Copyright &copy; 2019-2019</a>
+    </div>
+  </footer>
 </body>
 
 </html>
