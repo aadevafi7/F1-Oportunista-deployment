@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm
 
 from .dummies import add_user, users
 # Create your views here.
@@ -71,7 +71,12 @@ def login(request):
 
 def profile(request):
     if request.user.is_authenticated:
+        if request.method == 'POST':
+            # do post things
+            pass
+        else:
+            form = ChangePasswordForm()
         profile = request.user.userprofile
-        return render(request, 'idealista_app/profile/profile.html', {'profile': profile})
+        return render(request, 'idealista_app/profile/profile.html', {'profile': profile,  'form': form})
     else:
         return HttpResponse('Unauthorized', status=401)

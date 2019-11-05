@@ -1,6 +1,7 @@
 <head>
     <meta charset="utf-8">
     {% load static %}
+    {% load widget_tweaks %}
 
     <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
     <script src="https://kit.fontawesome.com/8593a80e63.js" crossorigin="anonymous"></script>
@@ -68,14 +69,42 @@
         <div id="datos">
 
             <div class="row">
-                <b>Email</b>, donde recives nuestras comunicaciones y los contactos de interesados o anunciantes
+                <p><b>Email</b>, donde recives nuestras comunicaciones y los contactos de interesados o anunciantes</p>
             </div>
             <div class="row">
-                {{ user.email }}
+                <p>
+                    {{ user.email }}
+                </p>
             </div>
             <div class="row">
                 <a href="#" class="text-info">Modificar email</a>
             </div>
+            <div class="row py-5">
+                <form action="#" method="POST">
+                    <h3>Cambiar contraseña</h3>
+                    {% csrf_token %}
+                    {% for field in form %}
+                    {% if field.name != "remember" %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {% render_field field class="form-control rounded-0" %}
+                        {% for error in field.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="form-check">
+                        {% render_field form.remember class="form-check-input" %}
+                        <label for="{{ form.remember.auto_id }}">{{ form.remember.label }}</label>
+                    </div>
+
+                    <button class="btn btn-secondary btn-block rounded-0" type="submit">Guardar cambios</button>
+                </form>
+            </div>
+
         </div>
     </div>
 
