@@ -28,6 +28,11 @@ urlpatterns = [
         name='logout'
     ),
     url(
+        regex=r'^placeholder/',
+        view=views.placeholder,
+        name='placeholder'
+    ),
+    url(
         regex=r'^publicar-anuncio/',
         view=views.publicarAnuncio,
         name='publicarAnuncio'
@@ -42,5 +47,10 @@ urlpatterns = [
         view=views.publicarAnuncio3,
         name='publicarAnuncio3'
 
-    )
+    ),
+    url(
+        regex=r'^profile/',
+        view=views.profile,
+        name='profile'
+    ),
 ]

@@ -1,0 +1,133 @@
+{% extends 'idealista_app/base.html' %}
+
+{% block content %}
+{% load widget_tweaks %}
+<div class="container">
+    <div class="row py-3">
+        <h2>Tu perfil</h2>
+    </div>
+    <div class="py-3">
+        <div class="row">
+            <div class="col-1">
+                <a href="#" id="showPerfil" class="text-secondary">Perfil</a>
+            </div>
+            <div class="col-auto">
+                <a href="#" id="showDatos" class="text-muted">Datos de acceso</a>
+            </div>
+
+        </div>
+        <hr>
+    </div>
+
+    <div id="perfil">
+        <div class="row py-3">
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp"
+                    placeholder="{{ user.first_name }}">
+                <small id="nombreHelp" class="form-text text-muted">Aparecerá cuando escribas a otros usuarios o
+                    publiques tu anuncio</small>
+            </div>
+        </div>
+
+        <div class="row py-3">
+            <div class="col">
+                <div class="row">
+                    <h3>{{ user.first_name }}</h3>
+                </div>
+                <div class="row"><i class="fas fa-user-circle fa-7x text-muted"></i></div>
+                <div class="row"><a href="#" class="text-info">Añadir foto</a></div>
+                <div class="row"><small class="text-muted">Una foto de tu cara ayuda a conocerte mejor</small>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row py-3">
+            <div class="col">
+                <div class="row">
+                    <h4>Email de acceso y contacto</h4>
+                </div>
+                <div class="row">
+                    <p>{{ user.email }}</p>
+                </div>
+                <div class="row">
+                    <a href="#" class="text-info">Modificar email</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row py-3">
+            <a href="#" class="text-info">Darse de baja en idealista</a>
+        </div>
+        <div class="row py-3">
+            <button type="button" class="btn btn-dark">Guardar cambios</button>
+        </div>
+    </div>
+
+    <div id="datos">
+
+        <div class="row">
+            <p><b>Email</b>, donde recives nuestras comunicaciones y los contactos de interesados o anunciantes</p>
+        </div>
+        <div class="row">
+            <p>
+                {{ user.email }}
+            </p>
+        </div>
+        <div class="row">
+            <a href="#" class="text-info">Modificar email</a>
+        </div>
+
+        <div class="row py-5">
+            <form action="#" method="POST">
+                <div class="alert alert-warning" role="alert">
+                    Este formulario aún no cambia la contraseña!
+                </div>
+                <h3>Cambiar contraseña</h3>
+                {% csrf_token %}
+                {% for field in form %}
+                {% if field.name != "remember" %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endfor %}
+                <div class="form-check">
+                    {% render_field form.remember class="form-check-input" %}
+                    <label for="{{ form.remember.auto_id }}">{{ form.remember.label }}</label>
+                </div>
+
+                <button class="btn btn-secondary btn-block rounded-0" type="submit">Guardar cambios</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+    console.log("Loading...")
+    $(document).ready(() => {
+        console.log("OK")
+        $("#perfil").show()
+        $("#datos").hide()
+        $("#showPerfil").click(() => {
+            $("#perfil").show()
+            $("#datos").hide()
+        })
+        $("#showDatos").click(() => {
+            $("#perfil").hide()
+            $("#datos").show()
+        })
+    })
+</script>
+{% endblock %}

@@ -12,6 +12,27 @@ class LoginForm(forms.Form):
     remember = forms.BooleanField(label='Recordar tus datos', required=False)
 
 
+class ChangePasswordForm(forms.Form):
+    current_password = forms.CharField(
+        widget=forms.PasswordInput, label='Contraseña actual')
+    new_password = forms.CharField(
+        widget=forms.PasswordInput, label='Nueva contraseña', help_text="Utiliza al menos 4 caracteres, letras y números")
+    repeat_password = forms.CharField(
+        widget=forms.PasswordInput, label='Vuelve a escribir la nueva contraseña')
+    remember = forms.BooleanField(
+        label="Recuérdame en este dispositivo", required=False)
+
+    def validate(self, value):
+        """Check if value consists only of valid emails."""
+        # Use the parent's handling of required fields, etc.
+        super().validate(value)
+        np = self.cleaned_data.get('new_password')
+        rp = self.cleaned_data.get('repeat_password')
+        if np != rp:
+            raise forms.ValidationError('Las contraseñas no coinciden.')
+        self.validate_email(value.email)
+
+
 class RegisterForm(forms.Form):
     email = forms.EmailField(label='Email de acceso')
     name = forms.CharField(label='Nombre')
