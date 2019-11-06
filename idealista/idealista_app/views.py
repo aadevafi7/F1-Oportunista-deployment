@@ -2,14 +2,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm
 
 from .dummies import add_user, users
 # Create your views here.
 
+
 def placeholder(request):
     return render(request, 'idealista_app/placeholder.html')
+
 
 def register_user(request):
     if request.method == 'POST':
@@ -31,9 +34,9 @@ def register_user(request):
 
 def homePage(request):
     if request.user.is_authenticated:
-        print("User is logged in")
+        pass
     else:
-        print("User is not logged in")
+        pass
     return render(request, 'idealista_app/home.html')
 
 
@@ -45,12 +48,18 @@ def logout(request):
 def submit(request):
     return render(request, 'idealista_app/submit.html')
 
+
 def publicarAnuncio(request):
     return render(request, 'idealista_app/publicar-anuncio.html')
+
+
 def publicarAnuncio2(request):
     return render(request, 'idealista_app/publicar-anuncio2.html')
+
+
 def publicarAnuncio3(request):
     return render(request, 'idealista_app/publicar-anuncio3.html')
+
 
 def login(request):
     if request.method == 'POST':
@@ -67,3 +76,7 @@ def login(request):
     else:
         form = LoginForm()
     return render(request, 'idealista_app/login.html', {'form': form})
+
+@login_required
+def profile(request):
+    return render(request, 'idealista_app/profile/profile.html')

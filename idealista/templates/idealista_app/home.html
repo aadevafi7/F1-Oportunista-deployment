@@ -57,7 +57,7 @@
 
         {% if  user.is_authenticated %}
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'idealista_app:profile' ">
+          <a href="{% url 'idealista_app:profile' %}">
             <button class="btn">
               <i class="fas fa-user-circle text-primary fa-2x"></i>
               <small>{{ user.first_name }}</small>
@@ -71,141 +71,141 @@
 
 
   <div class=" container max-width-540 py-5">
-            <form class="bg-primary px-1">
-              <div class="row pt-3 px-1 justify-content-center">
-                <h2>Haz caso a tu intuición</h2>
-              </div>
-              <div class="row">
-                <!-- transparent url('../../static/img/imgcasa2.png') no-repeat center center /cover; height: 500px; -->
-                <div class="col">
-                  <select class="custom-select rounded-0" multiple style="height: 240px;">
-                    <option selected>Comprar</option>
-                    <option value="Alquilar">Alquilar</option>
-                    <option value="Compartir">Compartir</option>
-                  </select>
-                </div>
-                <div class="col">
-                  <select class="custom-select rounded-0" multiple style="height: 240px;">
-                    <option selected>Obra nueva</option>
-                    <option value="Alquilar">Viviendas</option>
-                    <option value="Compartir">Vacacional</option>
-
-                    <option value="Compartir">Habitación</option>
-                    <option value="Alquilar">Oficinas</option>
-                    <option value="Compartir">Locales o naves</option>
-
-                    <option value="Alquilar">Garajes</option>
-                    <option value="Alquilar">Trasteros</option>
-                    <option value="Compartir">Edificios</option>
-
-                    <option value="Alquilar">Terrenos</option>
-
-                  </select>
-                </div>
-
-                <div class="col">
-                  <select class="custom-select rounded-0" multiple style="height: 240px;">
-                    <option selected>Barcelona</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row py-2 px-1 justify-content-end">
-                <div class="col-4">
-                  <button class="btn btn-secondary btn-block rounded-0" type="search"><strong>Buscar</strong></button>
-                </div>
-
-              </div>
-
-            </form>
-
-            <div class="row py-5 px-3">
-              <div class="col-6">
-                <div class="row">
-                  <h5> <strong>1.767.221 anuncios, 20.120 nuevos ayer</strong></h5>
-                </div>
-
-                <div class="row">
-                  Tus dos primeros anuncios son gratis
-                </div>
-
-              </div>
-              <div class="col-4">
-                <div class="row">
-                  <button class="btn btn-secondary btn-block rounded-0" type="submit">
-                    <strong>Poner anuncio</strong>
-                  </button>
-
-                </div>
-
-              </div>
-            </div>
-
-            <div class="row py-2 px-3">
-              <form id="busqueda">
-                <div class="row">
-                  <div class="col">
-                    <h5> <strong>Búsqueda por texto libre</strong></h5>
-                  </div>
-                </div>
-
-                <div class="row justify-content-start">
-                  <div class="form-group col-auto">
-                    <input type="radio" name="radio-compartir" value="bool">
-                    <label class="form-check-label" for="radio-compartir">
-                      Compartir
-                    </label>
-                  </div>
-                  <div class="form-group col-auto">
-                    <input type="radio" name="radio-alquilar" value="bool">
-                    <label class="form-check-label" for="radio-alquilar">
-                      Alquilar
-                    </label>
-
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-4">
-                    <select class="form-control">
-                      <option>Selecciona...</option>
-                      <option>Obra nueva</option>
-                      <option>Viviendas</option>
-                      <option>Habitación</option>
-                      <option>Oficinas</option>
-                      <option>Locales o naves</option>
-                      <option>Garajes</option>
-                      <option>Trasteros</option>
-                      <option>Edificios</option>
-                      <option>Terrenos</option>
-                    </select>
-                  </div>
-
-                  <div class="col-6">
-                    <input type="text" class="form-control" id="location" aria-describedby="locationHelp"
-                      placeholder="Escribe dónde buscas">
-                    <small id="location" class="form-text text-muted">
-                      También puedes buscar por característica,teléfono...
-                    </small>
-                  </div>
-
-                  <div class="col-2">
-                    <button class="btn btn-light" type="submit"><strong>Buscar</strong></button>
-                  </div>
-                </div>
-              </form>
-            </div>
-    </div>
-
-    </div>
-
-    <footer class="d-flex flex-column footer font-small">
-      <div class="footer-copyright text-center py-3 bg-light">
-        <a>Oportunista Copyright &copy; 2019-2019</a>
+    <form class="bg-primary px-1">
+      <div class="row pt-3 px-1 justify-content-center">
+        <h2>Haz caso a tu intuición</h2>
       </div>
-    </footer>
+      <div class="row">
+        <!-- transparent url('../../static/img/imgcasa2.png') no-repeat center center /cover; height: 500px; -->
+        <div class="col">
+          <select class="custom-select rounded-0" multiple style="height: 240px;">
+            <option selected>Comprar</option>
+            <option value="Alquilar">Alquilar</option>
+            <option value="Compartir">Compartir</option>
+          </select>
+        </div>
+        <div class="col">
+          <select class="custom-select rounded-0" multiple style="height: 240px;">
+            <option selected>Obra nueva</option>
+            <option value="Alquilar">Viviendas</option>
+            <option value="Compartir">Vacacional</option>
 
-    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script src="{% static "js/bootstrap.js" %}"></script>
+            <option value="Compartir">Habitación</option>
+            <option value="Alquilar">Oficinas</option>
+            <option value="Compartir">Locales o naves</option>
+
+            <option value="Alquilar">Garajes</option>
+            <option value="Alquilar">Trasteros</option>
+            <option value="Compartir">Edificios</option>
+
+            <option value="Alquilar">Terrenos</option>
+
+          </select>
+        </div>
+
+        <div class="col">
+          <select class="custom-select rounded-0" multiple style="height: 240px;">
+            <option selected>Barcelona</option>
+          </select>
+        </div>
+      </div>
+      <div class="row py-2 px-1 justify-content-end">
+        <div class="col-4">
+          <button class="btn btn-secondary btn-block rounded-0" type="search"><strong>Buscar</strong></button>
+        </div>
+
+      </div>
+
+    </form>
+
+    <div class="row py-5 px-3">
+      <div class="col-6">
+        <div class="row">
+          <h5> <strong>1.767.221 anuncios, 20.120 nuevos ayer</strong></h5>
+        </div>
+
+        <div class="row">
+          Tus dos primeros anuncios son gratis
+        </div>
+
+      </div>
+      <div class="col-4">
+        <div class="row">
+          <button class="btn btn-secondary btn-block rounded-0" type="submit">
+            <strong>Poner anuncio</strong>
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row py-2 px-3">
+      <form id="busqueda">
+        <div class="row">
+          <div class="col">
+            <h5> <strong>Búsqueda por texto libre</strong></h5>
+          </div>
+        </div>
+
+        <div class="row justify-content-start">
+          <div class="form-group col-auto">
+            <input type="radio" name="radio-compartir" value="bool">
+            <label class="form-check-label" for="radio-compartir">
+              Compartir
+            </label>
+          </div>
+          <div class="form-group col-auto">
+            <input type="radio" name="radio-alquilar" value="bool">
+            <label class="form-check-label" for="radio-alquilar">
+              Alquilar
+            </label>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <select class="form-control">
+              <option>Selecciona...</option>
+              <option>Obra nueva</option>
+              <option>Viviendas</option>
+              <option>Habitación</option>
+              <option>Oficinas</option>
+              <option>Locales o naves</option>
+              <option>Garajes</option>
+              <option>Trasteros</option>
+              <option>Edificios</option>
+              <option>Terrenos</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <input type="text" class="form-control" id="location" aria-describedby="locationHelp"
+              placeholder="Escribe dónde buscas">
+            <small id="location" class="form-text text-muted">
+              También puedes buscar por característica,teléfono...
+            </small>
+          </div>
+
+          <div class="col-2">
+            <button class="btn btn-light" type="submit"><strong>Buscar</strong></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  </div>
+
+  <footer class="d-flex flex-column footer font-small">
+    <div class="footer-copyright text-center py-3 bg-light">
+      <a>Oportunista Copyright &copy; 2019-2019</a>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script src="{% static "js/bootstrap.js" %}"></script>
 </body>
 
 </html>

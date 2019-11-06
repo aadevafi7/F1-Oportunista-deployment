@@ -46,5 +46,10 @@ urlpatterns = [
         regex=r'^publicar-anuncio3/',
         view=views.publicarAnuncio3,
         name='publicarAnuncio3'
-    )
+    ),
+    url(
+        regex=r'^profile/',
+        view=views.profile,
+        name='profile'
+    ),
 ]
