@@ -30,7 +30,7 @@ urlpatterns = [
     url(
         regex=r'^placeholder/',
         view=views.placeholder,
-        name='logout'
+        name='placeholder'
     ),
     url(
         regex=r'^publicar-anuncio/',
