@@ -28,6 +28,26 @@ urlpatterns = [
         name='logout'
     ),
     url(
+        regex=r'^placeholder/',
+        view=views.placeholder,
+        name='placeholder'
+    ),
+    url(
+        regex=r'^publicar-anuncio/',
+        view=views.publicarAnuncio,
+        name='publicarAnuncio'
+    ),
+    url(
+        regex=r'^publicar-anuncio2/',
+        view=views.publicarAnuncio2,
+        name='publicarAnuncio2'
+    ),
+    url(
+        regex=r'^publicar-anuncio3/',
+        view=views.publicarAnuncio3,
+        name='publicarAnuncio3'
+    ),
+    url(
         regex=r'^profile/',
         view=views.profile,
         name='profile'

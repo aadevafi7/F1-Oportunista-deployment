@@ -2,11 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm
 
 from .dummies import add_user, users
 # Create your views here.
+
+
+def placeholder(request):
+    return render(request, 'idealista_app/placeholder.html')
 
 
 def register_user(request):
@@ -44,6 +49,18 @@ def submit(request):
     return render(request, 'idealista_app/submit.html')
 
 
+def publicarAnuncio(request):
+    return render(request, 'idealista_app/publicar-anuncio.html')
+
+
+def publicarAnuncio2(request):
+    return render(request, 'idealista_app/publicar-anuncio2.html')
+
+
+def publicarAnuncio3(request):
+    return render(request, 'idealista_app/publicar-anuncio3.html')
+
+
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -60,10 +77,6 @@ def login(request):
         form = LoginForm()
     return render(request, 'idealista_app/login.html', {'form': form})
 
-
+@login_required
 def profile(request):
-    if request.user.is_authenticated:
-        profile = request.user.userprofile
-        return render(request, 'idealista_app/profile/profile.html', {'profile': profile})
-    else:
-        return HttpResponse('Unauthorized', status=401)
+    return render(request, 'idealista_app/profile/profile.html')
