@@ -46,10 +46,35 @@ def submit(request):
     return render(request, 'idealista_app/submit.html')
 
 def publicarAnuncio(request):
-    return render(request, 'idealista_app/publicar-anuncio.html')
+    if request.method == 'POST':
+        form = PublishAddForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('idealista_app:homePage')
+    else:
+        form = PublishAddForm()
+    return render(request, 'idealista_app/publicar-anuncio.html', {'form': form})
+
+
 def publicarAnuncio2(request):
+    if request.method == 'POST':
+        form = PublishAddForm2(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('idealista_app:homePage')
+    else:
+        form = PublishAddForm()
     return render(request, 'idealista_app/publicar-anuncio2.html')
+
+
 def publicarAnuncio3(request):
+    if request.method == 'POST':
+        form = PublishAddForm3(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('idealista_app:homePage')
+    else:
+        form = PublishAddForm()
     return render(request, 'idealista_app/publicar-anuncio3.html')
 
 def login(request):
@@ -67,15 +92,3 @@ def login(request):
     else:
         form = LoginForm()
     return render(request, 'idealista_app/login.html', {'form': form})
-
-
-def publish_add(request):
-    if request.method == 'POST':
-        form = PublishAddForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('idealista_app:homePage')
-    else:
-        form = PublishAddForm()
-    return render(request, 'idealista_app/publish-add.html', {'form': form})
-
