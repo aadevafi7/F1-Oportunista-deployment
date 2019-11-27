@@ -16,10 +16,19 @@ class property_type(models.Model):
     def __str__(self):
         return self.name
 
+class state(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, unique=True)
+
+class province(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, unique=True)
+    comunitat = models.ForeignKey(state, on_delete=models.DO_NOTHING)
 
 class location(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, unique=True)
+    provincia = models.ForeignKey(province, on_delete=models.DO_NOTHING)
 
 
 class property(models.Model):
