@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from .models import property, location
 
 from .forms import LoginForm, RegisterForm, ChangePasswordForm
 
@@ -80,3 +81,15 @@ def login(request):
 @login_required
 def profile(request):
     return render(request, 'idealista_app/profile/profile.html')
+
+@login_required
+def myposts(request):
+    user = request.user.id
+    print(user)
+    print(property.objects.filter(user=user).values('city__name').select_related)
+    properties_user = property.objects.filter(user=user)
+    context = {
+        'properties_user': properties_user,
+    }
+    return render(request, 'idealista_app/profile/profile.html', context)
+
