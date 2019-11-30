@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from .models import property, location
+from .models import PropertyType, Location, Property, PropertyPics
 
 from .forms import LoginForm, RegisterForm, ChangePasswordForm
 
@@ -86,8 +86,8 @@ def profile(request):
 def myposts(request):
     user = request.user.id
     print(user)
-    print(property.objects.filter(user=user).values('city__name').select_related)
-    properties_user = property.objects.filter(user=user)
+    print(Property.objects.filter(user=user).values('city__name').select_related)
+    properties_user = Property.objects.filter(user=user)
     context = {
         'properties_user': properties_user,
     }
