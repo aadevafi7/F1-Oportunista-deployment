@@ -84,12 +84,15 @@ def profile(request):
 
 @login_required
 def myposts(request):
-    user = request.user.id
-    print(user)
-    print(Property.objects.filter(user=user).values('city__name').select_related)
-    properties_user = Property.objects.filter(user=user)
-    context = {
-        'properties_user': properties_user,
-    }
-    return render(request, 'idealista_app/profile/profile.html', context)
+    if request.method == 'GET':
+        user = request.user.id
+        '''print(user)
+        print(Property.objects.filter(user=user).values('city__name').select_related)'''
+        properties_user = Property.objects.filter(user=user)
+        context = {
+            'properties_user': properties_user,
+        }
+        return render(request, 'idealista_app/profile/tus-anuncios.html', context)
+    else:
+        return render(request, 'idealista_app/profile/profile.html')
 
