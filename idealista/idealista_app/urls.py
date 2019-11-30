@@ -52,4 +52,9 @@ urlpatterns = [
         view=views.profile,
         name='profile'
     ),
+    url(
+        regex=r'^myposts',
+        view=views.myposts,
+        name='myposts'
+    ),
 ]
