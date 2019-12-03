@@ -53,4 +53,9 @@ urlpatterns = [
         view=views.profile,
         name='profile'
     ),
+    url(
+        regex=r'^publicaciones/',
+        view=views.publicaciones,
+        name='publicaciones'
+    ),
 ]
