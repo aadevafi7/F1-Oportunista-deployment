@@ -17,9 +17,30 @@ class PropertyType(models.Model):
         return self.name
 
 
+class State(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Province(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, unique=True)
+    state = models.ForeignKey(State, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.name
+
+
 class Location(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, unique=True)
+    province = models.ForeignKey(Province, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.name + '(' + self.province.name + ')'
 
 
 class Property(models.Model):
@@ -47,7 +68,7 @@ class Property(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name + ' (' + self.city + ')'
+        return self.name + ' (' + self.city.name + ')'
 
 
 class PropertyPics(models.Model):

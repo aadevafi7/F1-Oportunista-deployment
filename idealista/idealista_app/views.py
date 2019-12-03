@@ -62,6 +62,10 @@ def publicarAnuncio3(request):
     return render(request, 'idealista_app/publicar-anuncio3.html')
 
 
+def publicaciones(request):
+    return render(request, 'idealista_app/buscar-publicaciones.html')
+
+
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
