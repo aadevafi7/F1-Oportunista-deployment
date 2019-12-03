@@ -91,29 +91,36 @@ def profile(request):
     return render(request, 'idealista_app/profile/profile.html')
 
 
-def ads(request, state="", province="", location=""):
+def posts(request, type="", state="", province="", location=""):
     if request.method == 'GET':
         if state:
+            ads = ""
+            locations = ""
+            level = ""
+            lvl = 0
             if province:
                 if location:
-                    posts = Property.objects.filter(city__acr__iexact=location)
-                    level = Location.objects.get(acr__iexact=location)
+                    ads = Property.objects.filter(pro_type__acr=type, city__acr=location)
+                    level = Location.objects.get(acr=location)
+                    lvl = 3
                 else:
-                    posts = Property.objects.filter(city__province__acr__iexact=province)
-                    locations = Location.objects.filter(province__acr__iexact=province)
-                    level = Province.objects.get(acr__iexact=province)
+                    ads = Property.objects.filter(pro_type__acr=type, city__province__acr=province)
+                    locations = Location.objects.filter(province__acr=province)
+                    level = Province.objects.get(acr=province)
+                    lvl = 2
             else:
-                posts = Property.objects.filter(city__province__state__acr__iexact=state)
-                locations = Province.objects.filter(state__acr__iexact=state)
-                level = State.objects.get(acr_iexact=state)
+                ads = Property.objects.filter(pro_type__acr=type, city__province__state__acr=state)
+                locations = Province.objects.filter(state__acr=state)
+                level = State.objects.get(acr=state)
+                lvl = 1
         else:
-            posts = Property.objects.all()
+            ads = Property.objects.all()
             locations = State.objects.all()
-            level = ""
         context = {
-            'posts': posts,
+            'posts': ads,
             'locations': locations,
             'level': level,
+            'lvl': lvl,
         }
         return render(request, 'idealista_app/buscar-anuncios.html', context)
     else:

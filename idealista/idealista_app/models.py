@@ -12,6 +12,7 @@ class PropertyType(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=100)
+    acr = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.name
