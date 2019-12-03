@@ -79,33 +79,17 @@
         <!-- transparent url('../../static/img/imgcasa2.png') no-repeat center center /cover; height: 500px; -->
         <div class="col">
           <select class="custom-select rounded-0" multiple style="height: 240px;">
-            <option selected>Comprar</option>
-            <option value="Alquilar">Alquilar</option>
-            <option value="Compartir">Compartir</option>
-          </select>
-        </div>
-        <div class="col">
-          <select class="custom-select rounded-0" multiple style="height: 240px;">
-            <option selected>Obra nueva</option>
-            <option value="Alquilar">Viviendas</option>
-            <option value="Compartir">Vacacional</option>
-
-            <option value="Compartir">Habitación</option>
-            <option value="Alquilar">Oficinas</option>
-            <option value="Compartir">Locales o naves</option>
-
-            <option value="Alquilar">Garajes</option>
-            <option value="Alquilar">Trasteros</option>
-            <option value="Compartir">Edificios</option>
-
-            <option value="Alquilar">Terrenos</option>
-
+            {% for type in type_properties %}
+            <option>{{type.name}}</option>
+            {% endfor %}
           </select>
         </div>
 
         <div class="col">
           <select class="custom-select rounded-0" multiple style="height: 240px;">
-            <option selected>Barcelona</option>
+            {% for state in states %}
+            <option>{{state.name}}</option>
+            {% endfor %}
           </select>
         </div>
       </div>
@@ -149,19 +133,14 @@
         </div>
 
         <div class="row justify-content-start">
+          {% for type in type_properties %}
           <div class="form-group col-auto">
             <input type="radio" name="radio-compartir" value="bool">
             <label class="form-check-label" for="radio-compartir">
-              Compartir
+              {{type.name}}
             </label>
           </div>
-          <div class="form-group col-auto">
-            <input type="radio" name="radio-alquilar" value="bool">
-            <label class="form-check-label" for="radio-alquilar">
-              Alquilar
-            </label>
-
-          </div>
+          {% endfor %}
         </div>
 
         <div class="row">
