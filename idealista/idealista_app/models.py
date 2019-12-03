@@ -37,8 +37,9 @@ class Province(models.Model):
 class Location(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, unique=True)
-    
-     def __str__(self):
+    province = models.ForeignKey(Province, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
         return self.name
 
 
