@@ -14,7 +14,6 @@ class PropertyType(models.Model):
     description = models.CharField(max_length=100, blank=True, null=True)
     acr = models.CharField(max_length=50, blank=True, null=True)
 
-
     def __str__(self):
         return self.name
 
