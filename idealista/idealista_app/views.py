@@ -3,9 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from .models import PropertyType, Location, Property, PropertyPics
+from .models import PropertyType, State, Province, Location, Property, PropertyPics
 
-from .models import PropertyType, Property, State, Province, Location
 from .forms import LoginForm, RegisterForm, ChangePasswordForm
 
 from slugify import slugify
