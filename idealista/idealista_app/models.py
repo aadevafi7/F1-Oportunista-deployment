@@ -51,7 +51,7 @@ class Property(models.Model):
     id = models.AutoField(primary_key=True)
     pro_type = models.ForeignKey(PropertyType, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=50)
-    op_type = models.IntegerField(blank=True, null=True)
+    #op_type = models.IntegerField(blank=True, null=True)
     description = models.TextField(max_length=500)
     address = models.CharField(max_length=150)
     address_number = models.CharField(max_length=5, blank=True, null=True)
