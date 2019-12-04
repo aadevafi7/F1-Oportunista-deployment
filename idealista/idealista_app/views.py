@@ -7,7 +7,7 @@ from .models import PropertyType, State, Province, Location, Property, PropertyP
 
 from .forms import LoginForm, RegisterForm, ChangePasswordForm
 
-from slugify import slugify
+#from slugify import slugify
 
 from .dummies import add_user, users
 # Create your views here.
