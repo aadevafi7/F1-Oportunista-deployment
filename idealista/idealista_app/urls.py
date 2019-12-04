@@ -53,8 +53,8 @@ urlpatterns = [
         name='profile'
     ),
     url(
-        regex=r'^publicaciones/',
-        view=views.publicaciones,
-        name='publicaciones'
+        regex=r'^myposts',
+        view=views.myposts,
+        name='myposts'
     ),
 ]
