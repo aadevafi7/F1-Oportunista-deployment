@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from .models import PropertyType, Location, Property, PropertyPics
 
 from .models import PropertyType, Property, State, Province, Location
 from .forms import LoginForm, RegisterForm, ChangePasswordForm
@@ -69,10 +70,6 @@ def publicarAnuncio3(request):
     return render(request, 'idealista_app/publicar-anuncio3.html')
 
 
-def publicaciones(request):
-    return render(request, 'idealista_app/buscar-publicaciones.html')
-
-
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -93,6 +90,21 @@ def login(request):
 @login_required
 def profile(request):
     return render(request, 'idealista_app/profile/profile.html')
+
+
+@login_required
+def myposts(request):
+    if request.method == 'GET':
+        user = request.user.id
+        '''print(user)
+        print(Property.objects.filter(user=user).values('city__name').select_related)'''
+        properties_user = Property.objects.filter(user=user)
+        context = {
+            'properties_user': properties_user,
+        }
+        return render(request, 'idealista_app/profile/tus-anuncios.html', context)
+    else:
+        return render(request, 'idealista_app/profile/profile.html')
 
 
 def posts(request, type="", state="", province="", location=""):
