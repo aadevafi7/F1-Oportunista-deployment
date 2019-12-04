@@ -97,22 +97,21 @@ def posts(request, type="", state="", province="", location=""):
             ads = ""
             locations = ""
             level = ""
-            lvl = 0
+            path = state
             if province:
+                path += '/'+province
                 if location:
                     ads = Property.objects.filter(pro_type__acr=type, city__acr=location)
                     level = Location.objects.get(acr=location)
-                    lvl = 3
+                    path += '/'+location
                 else:
                     ads = Property.objects.filter(pro_type__acr=type, city__province__acr=province)
                     locations = Location.objects.filter(province__acr=province)
                     level = Province.objects.get(acr=province)
-                    lvl = 2
             else:
                 ads = Property.objects.filter(pro_type__acr=type, city__province__state__acr=state)
                 locations = Province.objects.filter(state__acr=state)
                 level = State.objects.get(acr=state)
-                lvl = 1
         else:
             ads = Property.objects.all()
             locations = State.objects.all()
@@ -120,9 +119,9 @@ def posts(request, type="", state="", province="", location=""):
             'posts': ads,
             'locations': locations,
             'level': level,
-            'lvl': lvl,
+            'path': path,
         }
-        return render(request, 'idealista_app/buscar-anuncios.html', context)
+        return render(request, 'idealista_app/buscar-publicaciones.html', context)
     else:
         homePage(request)
 
