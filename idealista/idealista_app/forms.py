@@ -93,6 +93,7 @@ class PropertyForm(forms.Form):
     description = forms.CharField(label="Descripción", widget=forms.Textarea)
     address = forms.CharField(label="Dirección")
     address_num = forms.CharField(label='Número', max_length=5)
+
     floor = forms.CharField(label='Piso', max_length=15)
     door = forms.CharField(label='Puerta', max_length=15)
     m_built = forms.DecimalField(
@@ -116,4 +117,5 @@ class PropertyForm(forms.Form):
     phone = forms.IntegerField(
         label='Número de teléfono', max_value=999999999, min_value=100000000)
 
+    image = forms.ImageField(label="Foto de la propiedad")
     # user

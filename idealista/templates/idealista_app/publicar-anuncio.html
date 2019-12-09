@@ -3,22 +3,343 @@
 {% block content %}
 {% load widget_tweaks %}
 
-<form action="/publish/" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-    {% if field.name != "remember" %}
-    <div class="form-group">
-        {{ field.label_tag }}
-        {% render_field field class="form-control rounded-0" %}
-        {% for error in field.errors %}
-        <div class="invalid-feedback">
-            {{ error }}
-        </div>
-        {% endfor %}
+<div class="container">
+    <div class="progress my-5">
+        <div id="progress" class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100"></div>
     </div>
-    {% endif %}
-    {% endfor %}
 
-    <input type="submit" value="Submit">
-</form>
+
+    <form action="/publish/" method="post">
+        {% csrf_token %}
+
+        <div id="define" class="card mb-3">
+            <div class="card-header">
+                Qué propiedad ofreces?
+            </div>
+            <div class="card-body">
+                {% with field=form.pro_type %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.name %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.op_type %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+            </div>
+            <button class="btn btn-primary btn-block rounded-0" type="button" onclick="set_position('#location')">
+                Siguiente
+            </button>
+        </div>
+
+        <!-- LOCATION SELECTION -->
+        <div id="location" class="card mb-3">
+            <div class="card-header">
+                Dónde está?
+            </div>
+            <div class="card-body">
+
+                {% with field=form.state %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+                {% with field=form.province %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+                {% with field=form.city %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.address %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.address_num %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.floor %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.door %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button class="btn btn-light btn-block rounded-0" type="button" onclick="set_position('#define')">
+                    Anterior
+                </button>
+                <button class="btn btn-light btn-block rounded-0" type="button" onclick="set_position('#description')">
+                    Siguiente
+                </button>
+            </div>
+        </div>
+
+        <div id="description" class="card mb-3">
+            <div class="card-header">
+                Háblanos de tu propiedad
+            </div>
+            <div class="card-body">
+                {% with field=form.m_built %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.m_use %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.bath_rooms %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.rooms %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.is_exterior %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.has_elevator %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.description %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+            </div>
+            <button class="btn btn-primary btn-block rounded-0" type="button" onclick="set_position('#contact-data')">
+                Siguiente
+            </button>
+        </div>
+
+        <!-- Datos de contacto -->
+        <div id="contact-data" class="card mb-3">
+            <div class="card-header">
+                Datos de contacto
+            </div>
+            <div class="card-body">
+                {% with field=form.phone %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
+                {% with field=form.price %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+            </div>
+            <button class="btn btn-primary btn-block rounded-0" type="button" onclick="set_position('#image')"
+                type="button">
+                Siguiente
+            </button>
+        </div>
+
+        <div id="image" class="card mb-3">
+            <div class="card-header">
+                Pon una foto!
+            </div>
+            <div class="card-body">
+                <!-- TODO preview image -->
+                {% with field=form.image %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+            </div>
+            <button class="btn btn-secondary btn-block rounded-0" type="submit" value="enviar">
+                Enviar
+            </button>
+        </div>
+
+
+
+    </form>
+</div>
+
+
+
+{% endblock %}
+
+{% block script %}
+<script>
+    var ids = ["#define", "#location", "#description", "#contact-data", "#image"]
+    $(document).ready(function () {
+        console.log('ok')
+        for (id of ids) {
+            $(id).hide()
+        }
+        $("#define").show()
+        $("#progress").css('width', 0).attr('aria-valuenow', 0)
+    })
+    function set_position(pos) {
+        for (id of ids) {
+            $(id).hide()
+        }
+        let cpos = ids.findIndex(p => p === pos) + 1
+        let w = cpos / ids.length * 100
+        $("#progress").css('width', w + "%").attr('aria-valuenow', w)
+        $(pos).show()
+    }
+
+</script>
 {% endblock %}
