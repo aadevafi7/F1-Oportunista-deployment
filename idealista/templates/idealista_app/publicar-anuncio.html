@@ -1,170 +1,24 @@
-<!DOCTYPE html>
-<html>
+{% extends 'idealista_app/base.html' %}
 
-<head>
-  <meta charset="utf-8">
-  {% load static %}
+{% block content %}
+{% load widget_tweaks %}
 
-  <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/8593a80e63.js" crossorigin="anonymous"></script>
-</head>
-
-<body>
-    <div>
-    
-        <div class="footer-copyright text-left py-1 bg-idealista">
-                <img src="{% static "img/logo.svg" %}" width="300px">
+<form action="/publish/" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    {% if field.name != "remember" %}
+    <div class="form-group">
+        {{ field.label_tag }}
+        {% render_field field class="form-control rounded-0" %}
+        {% for error in field.errors %}
+        <div class="invalid-feedback">
+            {{ error }}
         </div>
-      
-                <br>
-                <br>
-                <br>
-        <div class="container">
-    <div class="row">
-        <div class="col-6">
-            <h4>Poner tu anuncio de particular</h3><br>
-            <h4><strong>Elige el tipo de inmueble</strong></h2>
-            <select class="form-control rounded-0"style="width:330px;">
-                    <option>Selecciona...</option>
-                    <option>Obra nueva</option>
-                    <option>Viviendas</option>
-                    <option>Habitación</option>
-                    <option>Oficinas</option>
-                    <option>Locales o naves</option>
-                    <option>Garajes</option>
-                    <option>Trasteros</option>
-                    <option>Edificios</option>
-                    <option>Terrenos</option>
-                  </select>
-                  <br>
-            <h4><strong>Operación</strong></h4>
-            <br>
-            <input type="radio" name="radio-compartir" value="bool">
-            <label class="form-check-label" for="radio-compartir">
-              Venta
-            </label>
-            <br>
-            <input type="radio" name="radio-compartir" value="bool">
-            <label class="form-check-label" for="radio-compartir">
-              Alquiler
-              
-            </label><br>
-            <br>
-            <h4><strong>Localización del inmueble</strong></h4>
-            No mostraremos la puerta en tu anuncio<br>
-            <br>
-            Localidad
-            <input type="text" class="form-control rounded-0" id="location" aria-describedby="locationHelp" style="width: 330px;">
-            <br>
-            Nombre de la vía
-            <input type="text" class="form-control rounded-0" id="location" aria-describedby="locationHelp" style="width: 330px;">
-            <br>
-            Número de vía
-            <input type="text" class="form-control rounded-0" id="location" aria-describedby="locationHelp" style="width: 330px;">
-            <br>
-            ¿Quieres ocultar la calle y el número?
-            <br>
-           
-        <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="materialUnchecked">
-                    <label class="form-check-label" for="materialUnchecked">Ocultar por 9,90 €,¿por qué?</label><br>
-
-                </div>
-                <br>
-                
-                <button type="button" class="btnideal btn-default" style="width: 200px;"><strong>Comprobar dirección</strong></button>
-                <br>
-                <br>
-                <h5>Elige el tipo de inmueble</h5>
-                  <select class="form-control rounded-0"style="width:330px;">
-                          <option>Selecciona</option>
-                          <option>Semi-sótano</option>
-                          <option>Bajo</option>
-                          <option>Entreplanta</option>
-                          <option>Planta 1º</option>
-                          <option>Planta 2º</option>
-                          <option>Planta 3º</option>
-                          <option>Planta 4º</option>
-                          <option>Planta 5º</option>
-                          <option>Planta 6º</option>
-                          <option>Planta 7º</option>
-                          <option>Planta 8º</option>
-                          <option>Planta 9º</option>
-                          <option>Planta 10º</option>
-                          <option>Planta 11º</option>
-                          <option>Planta 12º</option>
-                          <option>Planta 13º</option>
-                        </select>
-                        <br>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="materialUnchecked">
-                          <label class="form-check-label" for="materialUnchecked">Es la última planta del bloque</label><br>
-                          <br>
-                        </div>
-
-                          <h5>Puerta</h5>
-                          <select class="form-control rounded-0"style="width:330px;">
-                                  <option>Selecciona</option>
-                                  <option>Letra(A,B,C....)</option>
-                                  <option>Número(1,2,3,....</option>
-                                  <option>Puerta única</option>
-                                  <option>Izquierda</option>
-                                  <option>Derecha</option>
-                                  <option>Exterior</option>
-                                  <option>Exterior Izquierda</option>
-                                  <option>Exterior derecha</option>
-                                  <option>Interior 6º</option>
-                                  <option>Interior izquierda</option>
-                                  <option>Interior derecha</option>
-                                  <option>Centro</option>
-                                  <option>Centro izquierda</option>
-                                  <option>Centro derecha</option>
-
-                                  <br>
-                                </select>
-                <br>
-                                <a href="{% url 'idealista_app:publicarAnuncio2' %}">
-                                <button class="btn btn-secondary btn-block rounded-0" type="submit" value="enviar" style="width: 200px;">
-                                  <strong>Siguiente>> </strong>
-                              </button>
-                            </a>
-                              
-                      </div>
-    
-        
-        <div class="col-6 text-justify">
-               
-                  <div class="row ">
-                    <div class="col-auto">
-                        Ten las fotos a mano. Si no las tienes, podrás añadirlas más tarde.Sin fotos no tendrás resultados.<br>
-                        <br>
-                        Te regalamos tus primeros dos anuncios para que pruebes nuestro servicio. Puedes publicar gratis pisos, chalets, garajes, parcelas, locales, etc hasta que lo vendas o alquiles.<br>
-                        <br>
-                        Las habitaciones en piso compartido son siempre gratis, no suman en el número de anuncios que te regalamos.
-                        <br>
-                        Para poder mantener nuestra calidad de servicio necesitamos cobrar en estos casos: <br>
-                        <strong>·</strong> anunciantes con más de dos inmuebles<br>
-                        <strong>·</strong> anuncios de inmuebles duplicados.<br>
-                        <strong>·</strong> inmuebles en venta de más de un millón de euros<br>
-                        <strong>·</strong> inmuebles en alquiler de más de 3.000 €/mes<br>
-                        ¿Eres profesional inmobiliario? Conoce nuestras ventajas para profesionales
-                    </div>
-                  
-                  </div>    
-        </div>
-    </div>    
+        {% endfor %}
     </div>
-    </div>
-    </div>
-    <br><br><br><br><br>
-    <footer class="d-flex flex-column footer font-small">
-      <div class="footer-copyright text-center py-3 bg-light">
-        <a>Oportunista Copyright &copy; 2019-2019</a>
-      </div>
-    </footer>
-  </body>
-  
+    {% endif %}
+    {% endfor %}
 
-
-</html>
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

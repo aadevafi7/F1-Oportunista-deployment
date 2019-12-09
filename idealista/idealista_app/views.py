@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 
 
-from .forms import LoginForm, RegisterForm, ChangePasswordForm, PublishAddForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm, PropertyForm
 
 
 from .dummies import add_user, users
@@ -55,36 +55,13 @@ def submit(request):
 
 def publicarAnuncio(request):
     if request.method == 'POST':
-        form = PublishAddForm(request.POST)
+        form = PropertyForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('idealista_app:homePage')
     else:
-        form = PublishAddForm()
+        form = PropertyForm()
     return render(request, 'idealista_app/publicar-anuncio.html', {'form': form})
-
-
-
-def publicarAnuncio2(request):
-    if request.method == 'POST':
-        form = PublishAddForm2(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('idealista_app:homePage')
-    else:
-        form = PublishAddForm()
-    return render(request, 'idealista_app/publicar-anuncio2.html')
-
-
-def publicarAnuncio3(request):
-    if request.method == 'POST':
-        form = PublishAddForm3(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('idealista_app:homePage')
-    else:
-        form = PublishAddForm()
-    return render(request, 'idealista_app/publicar-anuncio3.html')
 
 
 def publicaciones(request):
@@ -108,7 +85,7 @@ def login(request):
 
     return render(request, 'idealista_app/login.html', {'form': form})
 
+
 @login_required
 def profile(request):
     return render(request, 'idealista_app/profile/profile.html')
-

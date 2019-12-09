@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 from .dummies import add_user, user_exists
+from .models import *
 
 
 class LoginForm(forms.Form):
@@ -81,160 +82,38 @@ class RegisterForm(forms.Form):
         user.save()
 
 
-# TODO adapt to publication instead of registration
-class PublishAddForm(forms.Form):
+class PropertyForm(forms.Form):
+    # property type
+    PROPERTY_CHOICES = [(p, p.name) for p in PropertyType.objects.all()]
+    pro_type = forms.ChoiceField(
+        label='Tipo de propiedad', choices=PROPERTY_CHOICES)
 
-    pro_type =forms.CharField();
-    op_type = forms.CharField();
-    city = forms.CharField();
-    street= forms.CharField();
-    number= forms.CharField();
-    door = forms.CharField();
-    floor= forms.CharField();
-
-    email = forms.EmailField(label='Email de acceso')
     name = forms.CharField(label='Nombre')
-    password = forms.CharField(
-        widget=forms.PasswordInput, label='Tu contraseña')
-    aceptar_privacidad = forms.BooleanField(
-        label='Aceptar la política de privacidad')
-    recibir_info = forms.BooleanField(label="""
-        Recibir información de inmuebles,
-        noticias y otras comunicaciones
-        promocionales desde idealista,
-        idealista/data, idealista/hipotecas o
-        Rentalia basadas en tu perfil.""", required=False)
+    op_type = forms.IntegerField()  # ???
+    description = forms.CharField(label="Descripción", widget=forms.Textarea)
+    address = forms.CharField(label="Dirección")
+    address_num = forms.CharField(label='Número', max_length=5)
+    floor = forms.CharField(label='Piso', max_length=15)
+    door = forms.CharField(label='Puerta', max_length=15)
+    m_built = forms.DecimalField(
+        label='Metros construidos', max_digits=15, decimal_places=2)
+    m_use = forms.DecimalField(
+        label='Metros útiles', max_digits=15, decimal_places=2)
 
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
-        super(PublishAddForm, self).__init__(*args, **kwargs)
+    bath_rooms = forms.IntegerField(label='Numero de baños')
+    rooms = forms.IntegerField(label='Numero de habitaciones')
+    is_exterior = forms.BooleanField(label='Es exterior?')
+    has_elevator = forms.BooleanField(label='Tiene ascensor?')
+    price = forms.DecimalField(label='Precio')
 
-    def validate(self, value):
-        """Check if value consists only of valid emails."""
-        # Use the parent's handling of required fields, etc.
-        super().validate(value)
-        self.validate_email(value.email)
+    STATE_CHOICES = [(c, c.name) for c in State.objects.all()]
+    state = forms.ChoiceField(label='Estado', choices=STATE_CHOICES)
+    PROVINCE_CHOICES = [(c, c.name)for c in Province.objects.all()]
+    province = forms.ChoiceField(label='Provincia', choices=PROVINCE_CHOICES)
+    CITY_CHOICES = [(c, c.name) for c in Location.objects.all()]
+    city = forms.ChoiceField(label='Ciudad', choices=CITY_CHOICES)
 
-    def clean_email(self):
-        email = self.cleaned_data['email']
-        try:
-            match = User.objects.get(email=email)
-        except User.DoesNotExist:
-            # Unable to find a user, this is fine
-            return email
-        raise forms.ValidationError('Este email ya está registrado.')
+    phone = forms.IntegerField(
+        label='Número de teléfono', max_value=999999999, min_value=100000000)
 
-    def save(self, commit=True):
-        name = self.cleaned_data.get('name')
-        email = self.cleaned_data.get('email')
-        raw_password = self.cleaned_data.get('password')
-        recibir_info = self.cleaned_data.get('recibir_info')
-
-        user = User.objects.create_user(
-            name, email, raw_password
-        )
-        user.save()
-
-
-
-
-
-
-    class PublishAddForm2(forms.Form):
-        email = forms.EmailField(label='Email de acceso')
-        name = forms.CharField(label='Nombre')
-        password = forms.CharField(
-            widget=forms.PasswordInput, label='Tu contraseña')
-        aceptar_privacidad = forms.BooleanField(
-            label='Aceptar la política de privacidad')
-        recibir_info = forms.BooleanField(label="""
-            Recibir información de inmuebles,
-            noticias y otras comunicaciones
-            promocionales desde idealista,
-            idealista/data, idealista/hipotecas o
-            Rentalia basadas en tu perfil.""", required=False)
-
-        def __init__(self, *args, **kwargs):
-            self.user = kwargs.pop('user', None)
-            super(PublishAddForm2, self).__init__(*args, **kwargs)
-
-        def validate(self, value):
-            """Check if value consists only of valid emails."""
-            # Use the parent's handling of required fields, etc.
-            super().validate(value)
-            self.validate_email(value.email)
-
-        def clean_email(self):
-            email = self.cleaned_data['email']
-            try:
-                match = User.objects.get(email=email)
-            except User.DoesNotExist:
-                # Unable to find a user, this is fine
-                return email
-            raise forms.ValidationError('Este email ya está registrado.')
-
-        def save(self, commit=True):
-            name = self.cleaned_data.get('name')
-            email = self.cleaned_data.get('email')
-            raw_password = self.cleaned_data.get('password')
-            recibir_info = self.cleaned_data.get('recibir_info')
-
-            user = User.objects.create_user(
-                name, email, raw_password
-            )
-            user.save()
-
-
-
-
-
-
-
-
-
-
-
-class PublishAddForm3(forms.Form):
-        email = forms.EmailField(label='Email de acceso')
-        name = forms.CharField(label='Nombre')
-        password = forms.CharField(
-            widget=forms.PasswordInput, label='Tu contraseña')
-        aceptar_privacidad = forms.BooleanField(
-            label='Aceptar la política de privacidad')
-        recibir_info = forms.BooleanField(label="""
-            Recibir información de inmuebles,
-            noticias y otras comunicaciones
-            promocionales desde idealista,
-            idealista/data, idealista/hipotecas o
-            Rentalia basadas en tu perfil.""", required=False)
-
-        def __init__(self, *args, **kwargs):
-            self.user = kwargs.pop('user', None)
-            super(PublishAddForm3, self).__init__(*args, **kwargs)
-
-        def validate(self, value):
-            """Check if value consists only of valid emails."""
-            # Use the parent's handling of required fields, etc.
-            super().validate(value)
-            self.validate_email(value.email)
-
-        def clean_email(self):
-            email = self.cleaned_data['email']
-            try:
-                match = User.objects.get(email=email)
-            except User.DoesNotExist:
-                # Unable to find a user, this is fine
-                return email
-            raise forms.ValidationError('Este email ya está registrado.')
-
-        def save(self, commit=True):
-            name = self.cleaned_data.get('name')
-            email = self.cleaned_data.get('email')
-            raw_password = self.cleaned_data.get('password')
-            recibir_info = self.cleaned_data.get('recibir_info')
-
-            user = User.objects.create_user(
-                name, email, raw_password
-            )
-            user.save()
-
+    # user
