@@ -61,14 +61,17 @@ def submit(request):
     return render(request, 'idealista_app/submit.html')
 
 
+@login_required
 def publicarAnuncio(request):
     if request.method == 'POST':
-        form = PropertyForm(request.POST)
+        form = PropertyForm(request.user, request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('idealista_app:homePage')
+        else:
+            print(form.errors)
     else:
-        form = PropertyForm()
+        form = PropertyForm(request.user)
     return render(request, 'idealista_app/publicar-anuncio.html', {'form': form})
 
 
@@ -120,15 +123,18 @@ def posts(request, type="", state="", province="", location=""):
             if province:
                 path += '/'+province
                 if location:
-                    ads = Property.objects.filter(pro_type__acr=type, city__acr=location)
+                    ads = Property.objects.filter(
+                        pro_type__acr=type, city__acr=location)
                     level = Location.objects.get(acr=location)
                     path += '/'+location
                 else:
-                    ads = Property.objects.filter(pro_type__acr=type, city__province__acr=province)
+                    ads = Property.objects.filter(
+                        pro_type__acr=type, city__province__acr=province)
                     locations = Location.objects.filter(province__acr=province)
                     level = Province.objects.get(acr=province)
             else:
-                ads = Property.objects.filter(pro_type__acr=type, city__province__state__acr=state)
+                ads = Property.objects.filter(
+                    pro_type__acr=type, city__province__state__acr=state)
                 locations = Province.objects.filter(state__acr=state)
                 level = State.objects.get(acr=state)
         else:
@@ -145,10 +151,10 @@ def posts(request, type="", state="", province="", location=""):
         homePage(request)
 
 
-#l=[]
+# l=[]
 # propietat= objects.filter(propietat)
-#for p in propietat:
+# for p in propietat:
     # foto = objects.filter(propierty=p)
     #t (p, foto)
-    #l.append(t)
-#context =
+    # l.append(t)
+# context =

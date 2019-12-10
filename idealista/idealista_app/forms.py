@@ -95,7 +95,7 @@ class PropertyForm(forms.Form):
         label='Operación a realizar', choices=OP_CHOICES)  # ???
     description = forms.CharField(label="Descripción", widget=forms.Textarea)
     address = forms.CharField(label="Dirección")
-    address_num = forms.CharField(label='Número', max_length=5)
+    address_number = forms.CharField(label='Número', max_length=5)
 
     floor = forms.CharField(label='Piso', max_length=15)
     door = forms.CharField(label='Puerta', max_length=15)
@@ -104,7 +104,7 @@ class PropertyForm(forms.Form):
     m_use = forms.DecimalField(
         label='Metros útiles', max_digits=15, decimal_places=2)
 
-    bath_rooms = forms.IntegerField(label='Numero de baños')
+    bath = forms.IntegerField(label='Numero de baños')
     rooms = forms.IntegerField(label='Numero de habitaciones')
     is_exterior = forms.BooleanField(label='Es exterior?', required=False)
     has_elevator = forms.BooleanField(label='Tiene ascensor?', required=False)
@@ -117,11 +117,12 @@ class PropertyForm(forms.Form):
     phone = forms.IntegerField(
         label='Número de teléfono', max_value=999999999, min_value=100000000)
 
-    image = forms.ImageField(label="Foto de la propiedad")
+    image = forms.ImageField(label="Foto de la propiedad", required=False)
     # user
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, * args, **kwargs):
         super(PropertyForm, self).__init__(*args, **kwargs)
+        self.user = user
         self.fields['pro_type'].choices = [
             (p, p.name) for p in PropertyType.objects.all()]
         self.fields['state'].choices = [(c, c.name)
@@ -130,3 +131,32 @@ class PropertyForm(forms.Form):
                                            for c in Province.objects.all()]
         self.fields['city'].choices = [(':'.join([c.province.name, c.name]), c.name)
                                        for c in Location.objects.all()]
+
+    def clean_city(self):
+        email = self.cleaned_data['city']
+
+        try:
+            return email.split(':')[1]
+        except IndexError:
+            # Unable to find a user, this is fine
+            raise forms.ValidationError('Este email ya está registrado.')
+
+    def save(self, commit=True):
+        pro_type_value = self.cleaned_data.get("pro_type")
+        pro_type = PropertyType.objects.filter(name=pro_type_value).first()
+        # state_value = self.cleaned_data.get("state")
+        # state = State.objects.filter(name=state_value).first()
+        # province_value = self.cleaned_data.get("province")
+        # province = Province.objects.filter(name=province_value).first()
+        city_value = self.cleaned_data.get("city")
+        city = Location.objects.filter(name=city_value).first()
+        print(f"city_value={city_value}, city={city}")
+        out = self.cleaned_data.copy()
+        out['pro_type'] = pro_type
+        del out['state']
+        del out['province']
+        del out['image']  # TODO
+        out['city'] = city
+        out['user'] = self.user
+        p = Property.objects.create(**out)
+        p.save()

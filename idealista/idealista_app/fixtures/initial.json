@@ -1,0 +1,47 @@
+[
+    {
+        "model": "idealista_app.PropertyType",
+        "pk": 1,
+        "fields": {
+            "name": "Habitación compartida",
+            "description": "",
+            "acr": ""
+        }
+    },
+    {
+        "model": "idealista_app.PropertyType",
+        "pk": 2,
+        "fields": {
+            "name": "Piso",
+            "description": "",
+            "acr": ""
+        }
+    },
+    {
+        "model": "idealista_app.PropertyType",
+        "pk": 1,
+        "fields": {
+            "name": "Casa",
+            "description": "",
+            "acr": ""
+        }
+    },
+    {
+        "model": "idealista_app.PropertyType",
+        "pk": 1,
+        "fields": {
+            "name": "Terreno",
+            "description": "",
+            "acr": ""
+        }
+    },
+    {
+        "model": "idealista_app.PropertyType",
+        "pk": 1,
+        "fields": {
+            "name": "Edificio",
+            "description": "",
+            "acr": ""
+        }
+    }
+]
