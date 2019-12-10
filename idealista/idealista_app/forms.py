@@ -89,7 +89,10 @@ class PropertyForm(forms.Form):
         label='Tipo de propiedad', choices=PROPERTY_CHOICES)
 
     name = forms.CharField(label='Nombre')
-    op_type = forms.IntegerField()  # ???
+
+    OP_CHOICES = list(enumerate(['vender', 'alquilar']))
+    op_type = forms.ChoiceField(
+        label='Operación a realizar', choices=OP_CHOICES)  # ???
     description = forms.CharField(label="Descripción", widget=forms.Textarea)
     address = forms.CharField(label="Dirección")
     address_num = forms.CharField(label='Número', max_length=5)
@@ -103,15 +106,17 @@ class PropertyForm(forms.Form):
 
     bath_rooms = forms.IntegerField(label='Numero de baños')
     rooms = forms.IntegerField(label='Numero de habitaciones')
-    is_exterior = forms.BooleanField(label='Es exterior?')
-    has_elevator = forms.BooleanField(label='Tiene ascensor?')
+    is_exterior = forms.BooleanField(label='Es exterior?', required=False)
+    has_elevator = forms.BooleanField(label='Tiene ascensor?', required=False)
     price = forms.DecimalField(label='Precio')
 
     STATE_CHOICES = [(c, c.name) for c in State.objects.all()]
     state = forms.ChoiceField(label='Estado', choices=STATE_CHOICES)
-    PROVINCE_CHOICES = [(c, c.name)for c in Province.objects.all()]
+    PROVINCE_CHOICES = [(':'.join([c.state.name, c.name]), c.name)
+                        for c in Province.objects.all()]
     province = forms.ChoiceField(label='Provincia', choices=PROVINCE_CHOICES)
-    CITY_CHOICES = [(c, c.name) for c in Location.objects.all()]
+    CITY_CHOICES = [(':'.join([c.province.name, c.name]), c.name)
+                    for c in Location.objects.all()]
     city = forms.ChoiceField(label='Ciudad', choices=CITY_CHOICES)
 
     phone = forms.IntegerField(

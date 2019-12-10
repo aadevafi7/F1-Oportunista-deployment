@@ -3,6 +3,8 @@
 from django.db import migrations, models
 import django.db.models.deletion
 
+import os
+
 
 class Migration(migrations.Migration):
 
@@ -14,11 +16,14 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='property',
             name='city',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='idealista_app.Location'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING, to='idealista_app.Location'),
         ),
         migrations.AlterField(
             model_name='propertypics',
             name='property',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='idealista_app.Property'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='idealista_app.Property'),
         ),
+        migrations.RunSQL(open('../'))
     ]

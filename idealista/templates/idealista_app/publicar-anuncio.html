@@ -5,8 +5,8 @@
 
 <div class="container">
     <div class="progress my-5">
-        <div id="progress" class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="0"
-            aria-valuemin="0" aria-valuemax="100"></div>
+        <div id="progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+            aria-valuemax="100"></div>
     </div>
 
 
@@ -54,51 +54,58 @@
                 </div>
                 {% endwith %}
             </div>
-            <button class="btn btn-primary btn-block rounded-0" type="button" onclick="set_position('#location')">
+            <button class="btn btn-success btn-block rounded-0" type="button" onclick="set_position('#location')">
                 Siguiente
             </button>
         </div>
 
-        <!-- LOCATION SELECTION -->
         <div id="location" class="card mb-3">
             <div class="card-header">
                 Dónde está?
             </div>
             <div class="card-body">
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        {% with field=form.state %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {% render_field field class="form-control rounded-0" %}
+                            {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endwith %}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        {% with field=form.province %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {% render_field field class="form-control rounded-0" %}
+                            {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endwith %}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        {% with field=form.city %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {% render_field field class="form-control rounded-0" %}
+                            {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endwith %}
+                    </div>
+                </div>
 
-                {% with field=form.state %}
-                <div class="form-group">
-                    {{ field.label_tag }}
-                    {% render_field field class="form-control rounded-0" %}
-                    {% for error in field.errors %}
-                    <div class="invalid-feedback">
-                        {{ error }}
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endwith %}
-                {% with field=form.province %}
-                <div class="form-group">
-                    {{ field.label_tag }}
-                    {% render_field field class="form-control rounded-0" %}
-                    {% for error in field.errors %}
-                    <div class="invalid-feedback">
-                        {{ error }}
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endwith %}
-                {% with field=form.city %}
-                <div class="form-group">
-                    {{ field.label_tag }}
-                    {% render_field field class="form-control rounded-0" %}
-                    {% for error in field.errors %}
-                    <div class="invalid-feedback">
-                        {{ error }}
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endwith %}
 
                 {% with field=form.address %}
                 <div class="form-group">
@@ -149,10 +156,10 @@
                 {% endwith %}
             </div>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button class="btn btn-light btn-block rounded-0" type="button" onclick="set_position('#define')">
+                <button class="btn btn-light rounded-0" type="button" onclick="set_position('#define')">
                     Anterior
                 </button>
-                <button class="btn btn-light btn-block rounded-0" type="button" onclick="set_position('#description')">
+                <button class="btn btn-success rounded-0" type="button" onclick="set_position('#description')">
                     Siguiente
                 </button>
             </div>
@@ -212,26 +219,16 @@
                 {% endwith %}
 
                 {% with field=form.is_exterior %}
-                <div class="form-group">
+                <div class="form-check">
+                    {% render_field field class="form-check-input" %}
                     {{ field.label_tag }}
-                    {% render_field field class="form-control rounded-0" %}
-                    {% for error in field.errors %}
-                    <div class="invalid-feedback">
-                        {{ error }}
-                    </div>
-                    {% endfor %}
                 </div>
                 {% endwith %}
 
                 {% with field=form.has_elevator %}
-                <div class="form-group">
+                <div class="form-check">
+                    {% render_field field class="form-check-input" %}
                     {{ field.label_tag }}
-                    {% render_field field class="form-control rounded-0" %}
-                    {% for error in field.errors %}
-                    <div class="invalid-feedback">
-                        {{ error }}
-                    </div>
-                    {% endfor %}
                 </div>
                 {% endwith %}
 
@@ -247,12 +244,16 @@
                 </div>
                 {% endwith %}
             </div>
-            <button class="btn btn-primary btn-block rounded-0" type="button" onclick="set_position('#contact-data')">
-                Siguiente
-            </button>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button class="btn btn-light rounded-0" type="button" onclick="set_position('#location')">
+                    Anterior
+                </button>
+                <button class="btn btn-success rounded-0" type="button" onclick="set_position('#contact-data')">
+                    Siguiente
+                </button>
+            </div>
         </div>
 
-        <!-- Datos de contacto -->
         <div id="contact-data" class="card mb-3">
             <div class="card-header">
                 Datos de contacto
@@ -282,10 +283,14 @@
                 </div>
                 {% endwith %}
             </div>
-            <button class="btn btn-primary btn-block rounded-0" type="button" onclick="set_position('#image')"
-                type="button">
-                Siguiente
-            </button>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button class="btn btn-light rounded-0" type="button" onclick="set_position('#description')">
+                    Anterior
+                </button>
+                <button class="btn btn-success rounded-0" type="button" onclick="set_position('#image')">
+                    Siguiente
+                </button>
+            </div>
         </div>
 
         <div id="image" class="card mb-3">
@@ -306,12 +311,16 @@
                 </div>
                 {% endwith %}
             </div>
-            <button class="btn btn-secondary btn-block rounded-0" type="submit" value="enviar">
-                Enviar
-            </button>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button class="btn btn-light rounded-0" type="button" onclick="set_position('#contact-data')">
+                    Anterior
+                </button>
+                <button class="btn btn-secondary rounded-0" type="submit" value="enviar">
+                    Enviar
+                </button>
+            </div>
+
         </div>
-
-
 
     </form>
 </div>
@@ -323,20 +332,50 @@
 {% block script %}
 <script>
     var ids = ["#define", "#location", "#description", "#contact-data", "#image"]
+
+
     $(document).ready(function () {
-        console.log('ok')
+        let province_option = $('#id_province option').clone();
+        $("#id_state").on('change', function () {
+            let state = this.value
+            console.log(state)
+            $('#id_province').html(
+                province_option.filter(function () {
+                    return this.value.split(':')[0] === state
+                })
+            )
+        })
+
+        let city_option = $('#id_city option').clone();
+        $("#id_province").on('change', function () {
+            let province = this.value.split(':')[1]
+            console.log(province)
+            $('#id_city').html(
+                city_option.filter(function () {
+                    return this.value.split(':')[0] === province
+                })
+            )
+        })
+
+
+        // Set initial state
         for (id of ids) {
             $(id).hide()
         }
         $("#define").show()
         $("#progress").css('width', 0).attr('aria-valuenow', 0)
+
+        $('#id_state').trigger('change')
+        $('#id_province').trigger('change')
     })
+
+
     function set_position(pos) {
         for (id of ids) {
             $(id).hide()
         }
-        let cpos = ids.findIndex(p => p === pos) + 1
-        let w = cpos / ids.length * 100
+        let cpos = ids.findIndex(p => p === pos)
+        let w = Math.floor(10 * cpos / ids.length) * 10
         $("#progress").css('width', w + "%").attr('aria-valuenow', w)
         $(pos).show()
     }
