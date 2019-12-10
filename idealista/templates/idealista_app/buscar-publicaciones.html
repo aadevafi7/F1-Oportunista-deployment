@@ -37,15 +37,8 @@
         <div class="row py-5 px-3">
             <div class="col-12">
                 <div class="row">
-                    <h3>Mapa de Barcelona província: Obra nova en venda,</h3>
+                    <h3>Inmuebles de {{level.name}}</h3>
                 </div>
-
-                <div class="row">
-                    <a href="#" class="text-info">
-                        <strong>Veure els n habitatges</strong>
-                </a>
-                </div>
-
             </div>
 
         </div>
@@ -68,28 +61,13 @@
 
                 <div class="row py-5">
                     <div class="col">
-                        <h5>Zones a Barcelona</h5>
+                        <h5>Zones de {{level.name}}</h5>
                         <ul class="list-unstyled">
+                            {% for location in locations %}
                             <li>
-                                <a href="{% url 'idealista_app:homePage' %}" class="text-info">Barcelona</a>
+                                <a href="/posts/compra/{{path}}/{{location.acr}}/" class="text-info">{{location.name}}</a>
                             </li>
-                            <li>
-                                <a href="{% url 'idealista_app:homePage' %}" class="text-info">Hospitalet</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'idealista_app:homePage' %}" class="text-info">Badalona</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row py-5">
-                    <div class="col">
-                        <h5>Immobiliaries a Barcelona</h5>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="#" class="text-info">Immobiliaries a Barcelona</a>
-                            </li>
-
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -97,37 +75,17 @@
 
 
              <div class="col-6">
-                <a href="{% url 'idealista_app:homePage' %}" class="text-info">{Nombre del piso(link hacia la info de este}</a>
-                   <br>
-                   <img src="{% static "img/casa_prefabricada.jpg" %}" width="500px">    {Municipio}
-                   <br>
-                   <strong>{m2}</strong>   <strong>{Precio}</strong> 
-                   <br>
-                   <br>
-                   <a href="{% url 'idealista_app:homePage' %}" class="text-info">{Nombre del piso(link hacia la info de este}</a>
-                   <br>
-                   <img src="{% static "img/casa_prefabricada.jpg" %}" width="500px">    {Municipio}
-                   <br>
-                   <strong>{m2}</strong> <strong>{Precio}</strong> 
-
-                   <br>
-                   <br>
-                   <a href="{% url 'idealista_app:homePage' %}" class="text-info">{Nombre del piso(link hacia la info de este}</a>
-                   <br>
-                   <img src="{% static "img/casa_prefabricada.jpg" %}" width="500px">    {Municipio}
-                   <br>
-                   <strong>{m2}</strong> <strong>{Precio}</strong> 
-                   <br>
-                   <br>
-                   <a href="{% url 'idealista_app:homePage' %}" class="text-info">{Nombre del piso(link hacia la info de este}</a>
-                   <br>
-                   <img src="{% static "img/casa_prefabricada.jpg" %}" width="500px">    {Municipio}
-                   <br>
-                   <strong>{m2}</strong> <strong>{Precio}</strong> 
-
-                   
-
-                   
+                 {% for post in posts %}
+                 <a href="{% url 'idealista_app:homePage' %}" class="text-info">{{post.name}}</a>
+                 <br>
+                 <img src="{% static "img/casa_prefabricada.jpg" %}" width="500px">    {{post.city.name}}
+                 <br>
+                 <strong>{m2}</strong>   <strong>{{post.price}}</strong>
+                 <br>
+                 <br>
+                 {% empty %}
+                 <strong>No hay inmuebles en la localidad indicada</strong>
+                 {% endfor %}
             </div>
              
         </div>
