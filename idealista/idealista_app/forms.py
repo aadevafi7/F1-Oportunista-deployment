@@ -84,9 +84,9 @@ class RegisterForm(forms.Form):
 
 class PropertyForm(forms.Form):
     # property type
-    PROPERTY_CHOICES = [(p, p.name) for p in PropertyType.objects.all()]
+
     pro_type = forms.ChoiceField(
-        label='Tipo de propiedad', choices=PROPERTY_CHOICES)
+        label='Tipo de propiedad', choices=[])
 
     name = forms.CharField(label='Nombre')
 
@@ -110,17 +110,23 @@ class PropertyForm(forms.Form):
     has_elevator = forms.BooleanField(label='Tiene ascensor?', required=False)
     price = forms.DecimalField(label='Precio')
 
-    STATE_CHOICES = [(c, c.name) for c in State.objects.all()]
-    state = forms.ChoiceField(label='Estado', choices=STATE_CHOICES)
-    PROVINCE_CHOICES = [(':'.join([c.state.name, c.name]), c.name)
-                        for c in Province.objects.all()]
-    province = forms.ChoiceField(label='Provincia', choices=PROVINCE_CHOICES)
-    CITY_CHOICES = [(':'.join([c.province.name, c.name]), c.name)
-                    for c in Location.objects.all()]
-    city = forms.ChoiceField(label='Ciudad', choices=CITY_CHOICES)
+    state = forms.ChoiceField(label='Comunidad', choices=[])
+    province = forms.ChoiceField(label='Provincia', choices=[])
+    city = forms.ChoiceField(label='Ciudad', choices=[])
 
     phone = forms.IntegerField(
         label='Número de teléfono', max_value=999999999, min_value=100000000)
 
     image = forms.ImageField(label="Foto de la propiedad")
     # user
+
+    def __init__(self, *args, **kwargs):
+        super(PropertyForm, self).__init__(*args, **kwargs)
+        self.fields['pro_type'].choices = [
+            (p, p.name) for p in PropertyType.objects.all()]
+        self.fields['state'].choices = [(c, c.name)
+                                        for c in State.objects.all()]
+        self.fields['province'].choices = [(':'.join([c.state.name, c.name]), c.name)
+                                           for c in Province.objects.all()]
+        self.fields['city'].choices = [(':'.join([c.province.name, c.name]), c.name)
+                                       for c in Location.objects.all()]
