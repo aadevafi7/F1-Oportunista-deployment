@@ -150,7 +150,6 @@ class PropertyForm(forms.Form):
         # province = Province.objects.filter(name=province_value).first()
         city_value = self.cleaned_data.get("city")
         city = Location.objects.filter(name=city_value).first()
-        print(f"city_value={city_value}, city={city}")
         out = self.cleaned_data.copy()
         out['pro_type'] = pro_type
         del out['state']

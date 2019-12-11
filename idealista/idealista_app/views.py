@@ -69,7 +69,7 @@ def publicarAnuncio(request):
             form.save()
             return redirect('idealista_app:homePage')
         else:
-            print(form.errors)
+            pass  # print(form.errors)
     else:
         form = PropertyForm(request.user)
     return render(request, 'idealista_app/publicar-anuncio.html', {'form': form})
