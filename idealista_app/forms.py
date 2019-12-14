@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 from .dummies import add_user, user_exists
+from .models import *
 
 
 class LoginForm(forms.Form):
@@ -79,3 +80,82 @@ class RegisterForm(forms.Form):
             email, email, raw_password, first_name=name
         )
         user.save()
+
+
+class PropertyForm(forms.Form):
+    # property type
+
+    pro_type = forms.ChoiceField(
+        label='Tipo de propiedad', choices=[])
+
+    name = forms.CharField(label='Nombre')
+
+    OP_CHOICES = list(enumerate(['vender', 'alquilar']))
+    op_type = forms.ChoiceField(
+        label='Operación a realizar', choices=OP_CHOICES)  # ???
+    description = forms.CharField(label="Descripción", widget=forms.Textarea)
+    address = forms.CharField(label="Dirección")
+    address_number = forms.CharField(label='Número', max_length=5)
+
+    floor = forms.CharField(label='Piso', max_length=15)
+    door = forms.CharField(label='Puerta', max_length=15)
+    m_built = forms.DecimalField(
+        label='Metros construidos', max_digits=15, decimal_places=2)
+    m_use = forms.DecimalField(
+        label='Metros útiles', max_digits=15, decimal_places=2)
+
+    bath = forms.IntegerField(label='Numero de baños')
+    rooms = forms.IntegerField(label='Numero de habitaciones')
+    is_exterior = forms.BooleanField(label='Es exterior?', required=False)
+    has_elevator = forms.BooleanField(label='Tiene ascensor?', required=False)
+    price = forms.DecimalField(label='Precio')
+
+    state = forms.ChoiceField(label='Comunidad', choices=[])
+    province = forms.ChoiceField(label='Provincia', choices=[])
+    city = forms.ChoiceField(label='Ciudad', choices=[])
+
+    phone = forms.IntegerField(
+        label='Número de teléfono', max_value=999999999, min_value=100000000)
+
+    image = forms.ImageField(label="Foto de la propiedad", required=False)
+    # user
+
+    def __init__(self, user, * args, **kwargs):
+        super(PropertyForm, self).__init__(*args, **kwargs)
+        self.user = user
+        self.fields['pro_type'].choices = [
+            (p, p.name) for p in PropertyType.objects.all()]
+        self.fields['state'].choices = [(c, c.name)
+                                        for c in State.objects.all()]
+        self.fields['province'].choices = [(':'.join([c.state.name, c.name]), c.name)
+                                           for c in Province.objects.all()]
+        self.fields['city'].choices = [(':'.join([c.province.name, c.name]), c.name)
+                                       for c in Location.objects.all()]
+
+    def clean_city(self):
+        email = self.cleaned_data['city']
+
+        try:
+            return email.split(':')[1]
+        except IndexError:
+            # Unable to find a user, this is fine
+            raise forms.ValidationError('Este email ya está registrado.')
+
+    def save(self, commit=True):
+        pro_type_value = self.cleaned_data.get("pro_type")
+        pro_type = PropertyType.objects.filter(name=pro_type_value).first()
+        # state_value = self.cleaned_data.get("state")
+        # state = State.objects.filter(name=state_value).first()
+        # province_value = self.cleaned_data.get("province")
+        # province = Province.objects.filter(name=province_value).first()
+        city_value = self.cleaned_data.get("city")
+        city = Location.objects.filter(name=city_value).first()
+        out = self.cleaned_data.copy()
+        out['pro_type'] = pro_type
+        del out['state']
+        del out['province']
+        del out['image']  # TODO
+        out['city'] = city
+        out['user'] = self.user
+        p = Property.objects.create(**out)
+        p.save()
