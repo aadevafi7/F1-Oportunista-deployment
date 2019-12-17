@@ -10,12 +10,18 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 </head>
 
 <body>
 
+
     <div class=" container max-width-600 py-2">
+
         <a href="{% url 'idealista_app:homePage' %}" class="text-info">
           oportunista
         </a>
@@ -44,17 +50,21 @@
         </div>
 
         <div class="row">
-            <div class="col-3">
+
+            <div class=" bg bg-light col-4">
+
                 <div class="row">
                     <div class="col">
                         <h5>Cerca pel nom</h5>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-10">
+
+                    <div class="col-7">
                         <input class="form-control mr-sm-2" type="search" placeholder="Escriu un municipi, barri ..." aria-label="Search">
                     </div>
-                    <div class="col-1">
+                    <div class="col-3">
+
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
@@ -65,7 +75,7 @@
                         <ul class="list-unstyled">
                             {% for location in locations %}
                             <li>
-                                <a href="/posts/compra/{{path}}/{{location.acr}}/" class="text-info">{{location.name}}</a>
+                                <a href="/posts/{{path}}/{{location.acr}}/" class="text-info">{{location.name}}</a>
                             </li>
                             {% endfor %}
                         </ul>
@@ -73,23 +83,49 @@
                 </div>
             </div>
 
+            <div class="col-1">
 
-             <div class="col-6">
-                 {% for post in posts %}
-                 <a href="{% url 'idealista_app:homePage' %}" class="text-info">{{post.name}}</a>
-                 <br>
-                 <img src="{% static "img/casa_prefabricada.jpg" %}" width="500px">    {{post.city.name}}
-                 <br>
-                 <strong>{m2}</strong>   <strong>{{post.price}}</strong>
-                 <br>
-                 <br>
-                 {% empty %}
-                 <strong>No hay inmuebles en la localidad indicada</strong>
-                 {% endfor %}
             </div>
-             
-        </div>
 
+            <div class="col-7">
+                {% for post in posts %}
+              
+                <div class=" bg - bg-light row justify-content-md-left" style="border: solid; border-color: gray; " >
+                  
+                   <img src="{% static "img/casa_prefabricada.jpg" %}" alt="Responsive image" class="rounded" style="width: 100%;">
+                     <br>
+                     <br>
+                   <a href="/placeholder/{{post.id}}/" class="text-info"><h5><strong>{{post.name}} en {{post.city}} </strong></h5></a>
+                       <p><h4><strong>{{post.price}}€</strong></h4></p>
+                       <p>{{post.description}} </p>
+
+                        </div>
+                <br>
+                <br>
+              
+               
+                {% empty %}
+         
+                <strong>No hay inmuebles en la localidad indicada</strong>
+                
+                {% endfor %}
+          
+           
+           
+           
+            </div>
+            
+       </div>
+
+         
+        </div>
+    
+    
+        
+
+
+    
+    
 
 
 

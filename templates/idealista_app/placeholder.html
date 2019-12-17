@@ -1,7 +1,96 @@
+<!DOCTYPE html>
+<html>
 {% extends 'idealista_app/base.html' %}
-
 {% block content %}
-<div>
-    <p>V</p><p>E</p><p>R</p><p>Y</p><p> </p><p>N</p><p>I</p><p>C</p><p>E</p><p> </p><p>C</p><p>O</p><p>N</p><p>T</p><p>E</p><p>N</p><p>T</p>
+{% load widget_tweaks %}
+<head>
+  <meta charset="utf-8">
+  {% load static %}
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body >
+    <div class="footer-copyright text-left py-1 bg-">
+            
+        </div>
+    <div class="container" style="margin-left:200px;">
+          
+        <div class="row justify-content-md-left">
+           
+     
+        <div class="text-left col-8">              
+        <img src="{% static "img/casa_prefabricada.jpg" %}" alt="Responsive image" class="rounded" style="width: 100%;">
+        
+      <br>
+      <br>
+       
+        <form class="border bg-light"> 
+        <h3><strong>{{property.name}}</strong></h3>
+        <p>{{property.address}} {{property.address_number}}, {{property.city.name}} </p>
+        <p><strong>{{property.price}}€</strong></p>
+        {{property.m_build}} m² &nbsp | &nbsp {{property.rooms}} hab  {{property.floor}}ª planta <br>
+        <br>
+
+        <p><h4><strong>Comentario del anunciante</strong></h4></p>
+        <p>{{property.description}}</p>
+
+        <div class="row">
+        <div class="col-4">
+          <h4><strong>Características básicas</strong></h4>
+          <p>{{property.m_use}} m² construidos</p>
+          <p>{{property.rooms}} habitacion/es</p>
+          <p>{{property.bath}} baño/s</p>
+          
+        </div>
+        <div class="col-4">
+          <h4><strong>Edificio</strong></h4>
+            {% if property.floor > 0 %}
+          <p>Planta {{property.floor}}</p>
+            {% endif %}
+            {% if property.door > 0 %}
+            <p>Puerta {{property.door}}</p>
+            {% endif %}
+            {% if property.has_elevator > 0 %}
+            {{property.has_elevator}}
+            <p>Tiene ascensor</p>
+            {% else %}
+            <p>Sin ascensor</p>
+            {% endif %}
+            {% if propertuy.is_exterior > 0 %}
+            <p>Exterior</p>
+            {% else %}
+            <p>Interior</p>
+            {% endif %}
+        </div>  
+        </div>
+        </form>
+      </div>
+       <div class="margin-left col-4">
+         <form class="bg-light">
+           <h4><strong>Datos de contacto</strong></h4>
+             <p>Propietario: <strong>{{property.user.first_name}}</strong></p>
+             <p>Tel. <strong>{{property.phone}}</strong></p>
+
+         </form>
+       </div>
+      
+    </div>
+                        
+              
 </div>
+    
+    <br><br><br><br><br>
+    <footer class="d-flex flex-column footer font-small">
+      <div class="footer-copyright text-center py-3 bg-light">
+
+        <a>Oportunista Copyright &copy; 2019-2019</a>
+      </div>
+    </footer>
+  </body>
 {% endblock %}
+
+
+</html>

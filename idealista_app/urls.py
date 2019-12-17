@@ -29,11 +29,6 @@ urlpatterns = [
         name='logout'
     ),
     url(
-        regex=r'^placeholder/',
-        view=views.placeholder,
-        name='placeholder'
-    ),
-    url(
         regex=r'^publicar-anuncio/',
         view=views.publicarAnuncio,
         name='publicarAnuncio'
@@ -48,7 +43,8 @@ urlpatterns = [
         view=views.myposts,
         name='myposts'
     ),
-    path(r'posts/<slug:type>/<state>/', views.posts, name='posts'),
-    path(r'posts/<slug:type>/<state>/<province>/', views.posts, name='posts'),
-    path(r'posts/<slug:type>/<state>/<province>/<location>/', views.posts, name='posts'),
+    path(r'posts/<slug:operation>/<slug:type>/<state>/', views.posts, name='posts'),
+    path(r'posts/<slug:operation>/<slug:type>/<state>/<province>/', views.posts, name='posts'),
+    path(r'posts/<slug:operation>/<slug:type>/<state>/<province>/<location>/', views.posts, name='posts'),
+    path(r'placeholder/<id>/', views.placeholder, name='placeholder'),
 ]
