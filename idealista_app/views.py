@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from .models import OperationType, PropertyType, State, Province, Location, Property, PropertyPics
 
-from .forms import LoginForm, RegisterForm, ChangePasswordForm, PropertyForm, PhotoDirectForm, PhotoUnsignedDirectForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm, PropertyForm
 # -- Cloudinary
 from cloudinary import api
 from cloudinary.forms import cl_init_js_callbacks
