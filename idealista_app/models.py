@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 '''
 ----------------------------------------------
@@ -9,6 +10,16 @@ Modelos / tablas de la aplicación Oportunista
 
 
 class PropertyType(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50, unique=True)
+    description = models.CharField(max_length=100, blank=True, null=True)
+    acr = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class OperationType(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=100, blank=True, null=True)
@@ -51,7 +62,7 @@ class Property(models.Model):
     id = models.AutoField(primary_key=True)
     pro_type = models.ForeignKey(PropertyType, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=50)
-    op_type = models.IntegerField()
+    op_type = models.ForeignKey(OperationType, on_delete=models.DO_NOTHING)
     description = models.TextField(max_length=500)
     address = models.CharField(max_length=150)
     address_number = models.CharField(max_length=5, blank=True, null=True)
@@ -69,9 +80,15 @@ class Property(models.Model):
     city = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=9)
+    photo = models.ImageField(upload_to='media/images/')
+    # photo = CloudinaryField('image')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
+
+    '''def get_cloudinary_url(self):
+        return self.photo.url
+    '''
 
     def __str__(self):
         return self.name + ' (' + self.city.name + ')'

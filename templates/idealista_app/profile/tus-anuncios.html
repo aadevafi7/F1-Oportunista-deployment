@@ -1,17 +1,6 @@
 {% extends 'idealista_app/base.html' %}
-
+{% load static %}
 {% block content %}
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  {% load static %}
-
-  <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/8593a80e63.js" crossorigin="anonymous"></script>
-</head>
 <div>
     <p><h3>Tus anuncios</h3></p>
     <br>
@@ -19,15 +8,22 @@
     <div class="container">
 
         {% for propietat in properties_user %}
-        <form class="bg-light px-1">
+        <form method="POST" class="bg-light px-1">
+            {% csrf_token %}
          <br>
          <br>
 
           <div class="row">
             <!-- transparent url('../../static/img/imgcasa2.png') no-repeat center center /cover; height: 500px; -->
-            <div class="col-6">
-                    <img src="{% static "img/casa_prefabricada.jpg" %}" width="500px">
+            <div class="col-12">
+
+                    <img src="{% static "img/casa_prefabricada.jpg" %}" width="500px"><br>
+                    <br>
+                 
+                  
+                  </div>
             </div>
+
             <br>
           <div class="col-4">
               <strong>{{propietat.name}}</strong>
@@ -45,12 +41,8 @@
                 <br>
                 Por {{propietat.price}}€
                 <div class="col-12" style="left: 100px;">
-                <ul class="list-unstyled">
-                        <li><a href="#" class="text-info"><h3>Gestionar tu anuncio</h3></a></li>
-                </ul>
-                <p class="text-muted">
-                        <b>Modificar, destacar o desactivar</b>
-                    </p>
+                  <button class="btn btn-danger"name="deletePost" style="margin-left: 350px;" value={{propietat.id}}>Eliminar post <span class="glyphicon glyphicon-remove-circle"></span></button>
+
                 <br>
                 <br>
                 <br>

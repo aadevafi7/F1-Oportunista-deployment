@@ -15,9 +15,21 @@
 
         <div id="define" class="card mb-3">
             <div class="card-header">
-                Qué propiedad ofreces?
+                Qué ofreces?
             </div>
             <div class="card-body">
+                {% with field=form.op_type %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control rounded-0" %}
+                    {% for error in field.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endwith %}
+
                 {% with field=form.pro_type %}
                 <div class="form-group">
                     {{ field.label_tag }}
@@ -31,18 +43,6 @@
                 {% endwith %}
 
                 {% with field=form.name %}
-                <div class="form-group">
-                    {{ field.label_tag }}
-                    {% render_field field class="form-control rounded-0" %}
-                    {% for error in field.errors %}
-                    <div class="invalid-feedback">
-                        {{ error }}
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endwith %}
-
-                {% with field=form.op_type %}
                 <div class="form-group">
                     {{ field.label_tag }}
                     {% render_field field class="form-control rounded-0" %}
@@ -299,7 +299,7 @@
             </div>
             <div class="card-body">
                 <!-- TODO preview image -->
-                {% with field=form.image %}
+                {% with field=form.photo %}
                 <div class="form-group">
                     {{ field.label_tag }}
                     {% render_field field class="form-control rounded-0" %}
@@ -344,6 +344,7 @@
                     return this.value.split(':')[0] === state
                 })
             )
+            $('#id_province').trigger('change')
         })
 
         let city_option = $('#id_city option').clone();
@@ -355,6 +356,7 @@
                     return this.value.split(':')[0] === province
                 })
             )
+            $('#id_city').trigger('change')
         })
 
 

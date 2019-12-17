@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from decimal import Decimal
 from django.contrib.auth.models import User
-from .models import PropertyType, Property, Location, State, Province, Location
+from .models import OperationType, PropertyType, Property, State, Province, Location
 from .forms import LoginForm, RegisterForm
 # Create your tests here.
 
@@ -106,14 +106,16 @@ class CreatePostTest(TestCase):
             'password': '1234abcd'
         }
         User.objects.create_user(**self.credentials)
-        PropertyType.objects.create(name='Comprar')
-        ptype = PropertyType.objects.get(name='Comprar')
+        OperationType.objects.create(name='Alquiler')
+        otype = OperationType.objects.get(name='Alquiler')
+        PropertyType.objects.create(name='Vivienda')
+        ptype = PropertyType.objects.get(name='Vivienda')
         user = User.objects.get(
             username=self.credentials['username'])
-        state = State.objects.create(name='Cataluña')
+        state = State.objects.create(name='Catalunya')
         prov = Province.objects.create(name='Tarragona', state=state)
         self.city = Location.objects.create(name='Salou', province=prov)
-        self.object = dict(pro_type=ptype, op_type=1, name='Piso test', description='Piso bonito con vistas a la UB',
+        self.object = dict(pro_type=ptype, op_type=otype, name='Piso test', description='Piso bonito con vistas a la UB',
                            address='Gran Via 476', address_number='1', m_use=Decimal('100.00'), m_built=Decimal('100.00'), floor='4', door='5', rooms=4, bath=2, price=Decimal('200000'), city="Tarragona:Salou", state='Cataluña', province='Cataluña:Tarragona',
                            email='', phone='123456789', user=user)
 

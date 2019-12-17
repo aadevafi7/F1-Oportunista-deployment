@@ -1,9 +1,11 @@
-
 from django import forms
 from django.contrib.auth.models import User
 
 from .dummies import add_user, user_exists
 from .models import *
+from cloudinary.forms import CloudinaryJsFileField, CloudinaryUnsignedJsFileField
+from cloudinary.compat import to_bytes
+import cloudinary, hashlib
 
 
 class LoginForm(forms.Form):
@@ -17,7 +19,8 @@ class ChangePasswordForm(forms.Form):
     current_password = forms.CharField(
         widget=forms.PasswordInput, label='Contraseña actual')
     new_password = forms.CharField(
-        widget=forms.PasswordInput, label='Nueva contraseña', help_text="Utiliza al menos 4 caracteres, letras y números")
+        widget=forms.PasswordInput, label='Nueva contraseña',
+        help_text="Utiliza al menos 4 caracteres, letras y números")
     repeat_password = forms.CharField(
         widget=forms.PasswordInput, label='Vuelve a escribir la nueva contraseña')
     remember = forms.BooleanField(
@@ -86,43 +89,46 @@ class PropertyForm(forms.Form):
     # property type
 
     pro_type = forms.ChoiceField(
-        label='Tipo de propiedad', choices=[])
+        label='Tipo de inmueble', choices=[])
 
-    name = forms.CharField(label='Nombre')
+    name = forms.CharField(label='Nombre*')
 
-    OP_CHOICES = list(enumerate(['vender', 'alquilar']))
     op_type = forms.ChoiceField(
-        label='Operación a realizar', choices=OP_CHOICES)  # ???
-    description = forms.CharField(label="Descripción", widget=forms.Textarea)
-    address = forms.CharField(label="Dirección")
-    address_number = forms.CharField(label='Número', max_length=5)
+        label='Operación', choices=[])
+    description = forms.CharField(label="Descripción*", widget=forms.Textarea)
+    address = forms.CharField(label="Dirección*")
+    address_number = forms.CharField(label='Número*', max_length=5)
 
-    floor = forms.CharField(label='Piso', max_length=15)
-    door = forms.CharField(label='Puerta', max_length=15)
+    floor = forms.CharField(label='Piso', max_length=15, required=False)
+    door = forms.CharField(label='Puerta', max_length=15, required=False)
     m_built = forms.DecimalField(
-        label='Metros construidos', max_digits=15, decimal_places=2)
+        label='Metros construidos*', max_digits=15, decimal_places=2)
     m_use = forms.DecimalField(
-        label='Metros útiles', max_digits=15, decimal_places=2)
+        label='Metros útiles*', max_digits=15, decimal_places=2)
 
-    bath = forms.IntegerField(label='Numero de baños')
-    rooms = forms.IntegerField(label='Numero de habitaciones')
+    bath = forms.IntegerField(label='Numero de baños*')
+    rooms = forms.IntegerField(label='Numero de habitaciones*')
     is_exterior = forms.BooleanField(label='Es exterior?', required=False)
     has_elevator = forms.BooleanField(label='Tiene ascensor?', required=False)
-    price = forms.DecimalField(label='Precio')
+    price = forms.DecimalField(label='Precio*')
 
-    state = forms.ChoiceField(label='Comunidad', choices=[])
-    province = forms.ChoiceField(label='Provincia', choices=[])
-    city = forms.ChoiceField(label='Ciudad', choices=[])
+    state = forms.ChoiceField(label='Comunidad*', choices=[])
+    province = forms.ChoiceField(label='Provincia*', choices=[])
+    city = forms.ChoiceField(label='Ciudad*', choices=[])
 
     phone = forms.IntegerField(
-        label='Número de teléfono', max_value=999999999, min_value=100000000)
+        label='Número de teléfono*', max_value=999999999, min_value=600000000)
 
-    image = forms.ImageField(label="Foto de la propiedad", required=False)
+    photo = forms.ImageField(label="Foto del inmueble", required=False)
+    # photo = CloudinaryJsFileField()
+
     # user
 
-    def __init__(self, user, * args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         super(PropertyForm, self).__init__(*args, **kwargs)
         self.user = user
+        self.fields['op_type'].choices = [
+            (p, p.name) for p in OperationType.objects.all()]
         self.fields['pro_type'].choices = [
             (p, p.name) for p in PropertyType.objects.all()]
         self.fields['state'].choices = [(c, c.name)
@@ -142,6 +148,8 @@ class PropertyForm(forms.Form):
             raise forms.ValidationError('Este email ya está registrado.')
 
     def save(self, commit=True):
+        op_type_value = self.cleaned_data.get("op_type")
+        op_type = OperationType.objects.filter(name=op_type_value).first()
         pro_type_value = self.cleaned_data.get("pro_type")
         pro_type = PropertyType.objects.filter(name=pro_type_value).first()
         # state_value = self.cleaned_data.get("state")
@@ -151,11 +159,21 @@ class PropertyForm(forms.Form):
         city_value = self.cleaned_data.get("city")
         city = Location.objects.filter(name=city_value).first()
         out = self.cleaned_data.copy()
+        out['op_type'] = op_type
         out['pro_type'] = pro_type
         del out['state']
         del out['province']
-        del out['image']  # TODO
+        # del out['photo']  # TODO
         out['city'] = city
         out['user'] = self.user
         p = Property.objects.create(**out)
         p.save()
+
+
+class PhotoDirectForm(PropertyForm):
+    photo = CloudinaryJsFileField()
+
+
+class PhotoUnsignedDirectForm(PropertyForm):
+    upload_preset_name = "sample_" + hashlib.sha1(to_bytes(cloudinary.config().api_key + cloudinary.config().api_secret)).hexdigest()[0:10]
+    photo = CloudinaryUnsignedJsFileField(upload_preset_name)
