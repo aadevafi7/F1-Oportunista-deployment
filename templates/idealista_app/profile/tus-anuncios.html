@@ -19,9 +19,6 @@
 
                     <img src="{% static "img/casa_prefabricada.jpg" %}" width="500px"><br>
                     <br>
-                 
-                  
-                  </div>
             </div>
 
             <br>
@@ -35,51 +32,23 @@
                 Con {{propietat.rooms}} habitaciones y {{propietat.bath}} baños
                 <br>
                 <br>
-                <strong>Piso en</strong> {{propietat.address}} numero {{propietat.address_number}}, {{propietat.city.name}}
+                <strong>Inmueble en</strong> {{propietat.address}} numero {{propietat.address_number}}, {{propietat.city.name}}
                 <br>
                 <br>
                 <br>
                 Por {{propietat.price}}€
                 <div class="col-12" style="left: 100px;">
                   <button class="btn btn-danger"name="deletePost" style="margin-left: 350px;" value={{propietat.id}}>Eliminar post <span class="glyphicon glyphicon-remove-circle"></span></button>
-
                 <br>
                 <br>
                 <br>
-            </div>
+                </div>
             </div>
   
             
           </div>
         </form>
         {% endfor %}
-
-    
-  
-            </div>
-            <div>
-                    <button class="btn btn-secondary btn-block rounded-0" type="submit" value="enviar" style="width: 200px; height: 50px;">
-                            <strong>Poner otro anuncio</strong> 
-                        </button>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-            </div>
-        <div>
-            <h5><strong>Tambíen puedes</strong></h5>
-            <br>
-            <ul class="list-unstyled">
-                    <li><a href="#" class="text-info">Mejorar las fotos y los vídeos</a> de tu anuncio</li>
-                    <br>
-                    <li><a href="#" class="text-info">Imprimir tu anuncio</a> para ponerlo en portales, farolas, la universidad...</li>
-                    <br>
-                    <li> Ver nuestra <a href="#" class="text-info">política de cobros y precios</a> </li>
-            </ul>
-
-        </div>
-        </div>
       </div>
 </div>
 {% endblock %}

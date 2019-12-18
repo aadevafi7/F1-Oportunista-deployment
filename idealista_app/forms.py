@@ -120,7 +120,6 @@ class PropertyForm(forms.Form):
         label='Número de teléfono*', max_value=999999999, min_value=600000000)
 
     photo = forms.ImageField(label="Foto del inmueble", required=False)
-    # photo = CloudinaryJsFileField()
 
     # user
 

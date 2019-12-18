@@ -11,9 +11,9 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light">
+  <nav class="bg bg-idealista navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="{% url 'idealista_app:homePage' %}">
-      <img src="{% static "img/logo.svg" %}" width="400" height="50" class="d-inline-block align-top" alt="oportunista">
+      <img src="{% static "img/logo.svg" %}" width="300" height="50" class="d-inline-block align-top" alt="Responsive image">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,12 +21,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
         <a href="{% url 'idealista_app:publicarAnuncio' %}" class="btn btn-outline-secondary rounded text-black">
           <small>
             <i class="fas fa-thumbtack"></i>
             Pon tu anuncio gratis
           </small>
         </a>
+        {% endif %}
         <li class="nav-item active" href="#">
           {% if user.is_authenticated %}
           <a href="{% url 'idealista_app:logout' %}">
@@ -68,14 +70,50 @@
     </div>
   </nav>
 
-
+    <div style="background:  no-repeat center top url({% static "img/casaBackground.jpg" %}) ;">
   <div class=" container max-width-540 py-5">
-    <form class="bg-primary px-1">
-      <div class="row pt-3 px-1 justify-content-center">
+
+    <form class="bg-primary px-2" action="{% url 'idealista_app:homePage' %}" method="POST">
+      {% csrf_token %}
+      <div class="row pt-3 px-2 justify-content-center">
         <h2>Haz caso a tu intuición</h2>
       </div>
-      <div class="row">
-        <!-- transparent url('../../static/img/imgcasa2.png') no-repeat center center /cover; height: 500px; -->
+
+      <div class="form-row">
+        <div class="col">
+          <select id="op" name="op" class="custom-select rounded-0" multiple style="height: 240px;">
+            {% for type in type_operations %}
+            <option>{{type.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col">
+          <select id="tipo" name="tipo" class="custom-select rounded-0" multiple style="height: 240px;">
+            {% for type in type_properties %}
+            <option>{{type.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col">
+
+          <select id="comunidad" name="comunidad" class="custom-select rounded-0" multiple style="height: 240px;">
+            {% for state in states %}
+            <option>{{state.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+      </div>
+
+      <div class="form-row py-2 px-1 justify-content-end">
+        <div class="col-4"><input class="btn btn-secondary btn-block rounded-0" type="submit" value="Buscar"></div>
+
+      </div>
+    </form>
+
+    <!--div class="row">
 
         <div class="col">
           <select id="primer" class="custom-select rounded-0" multiple style="height: 240px;">
@@ -102,8 +140,10 @@
             {% endfor %}
           </select>
         </div>
-      </div>
-      <div class="row py-2 px-1 justify-content-end">
+      </div -->
+
+
+    <!--div class="row py-2 px-1 justify-content-end">
         <div class="col-4">
 
           <a class="btn btn-secondary btn-block rounded-0" type="submit" onclick="redirect(this)">
@@ -114,33 +154,37 @@
           </a>
         </div>
 
-      </div>
+      </div-->
 
     </form>
-
-    <div class="row py-5 px-3">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+   
+    <div class="bg bg-light row py-5 px-3">
       <div class="col-6">
         <div class="row">
-          <h5> <strong>1.767.221 anuncios, 20.120 nuevos ayer</strong></h5>
-        </div>
-
-        <div class="row">
-          Tus dos primeros anuncios son gratis
+          <h5> <strong>Poner tu anuncio es gratis...</strong></h5>
         </div>
 
       </div>
       <div class="col-4">
         <div class="row">
-          <button class="btn btn-secondary btn-block rounded-0" type="submit">
+          <a class="btn btn-secondary btn-block rounded-0" href="{% url 'idealista_app:publicarAnuncio' %}">
+         
             <strong>Poner anuncio</strong>
-          </button>
-
+       
+        </a>
         </div>
 
       </div>
+     
     </div>
 
-    <div class="row py-2 px-3">
+    <!-- not so secret secrets 
+    <div class="bg bg-light row py-2 px-3">
       <form id="busqueda">
         <div class="row">
           <div class="col">
@@ -159,43 +203,58 @@
           {% endfor %}
         </div>
 
-        <div class="row">
-          <div class="col-4">
-            <select class="form-control">
-              <option>Selecciona...</option>
-              <option>Obra nueva</option>
-              <option>Viviendas</option>
-              <option>Habitación</option>
-              <option>Oficinas</option>
-              <option>Locales o naves</option>
-              <option>Garajes</option>
-              <option>Trasteros</option>
-              <option>Edificios</option>
-              <option>Terrenos</option>
-            </select>
-          </div>
+        <form>
 
-          <div class="col-6">
-            <input type="text" class="form-control" id="location" aria-describedby="locationHelp"
-              placeholder="Escribe dónde buscas">
-            <small id="location" class="form-text text-muted">
-              También puedes buscar por característica,teléfono...
-            </small>
-          </div>
 
-          <div class="col-2">
-            <button class="btn btn-light" type="submit"><strong>Buscar</strong></button>
+
+          <div class="row">
+            <div class="col-4">
+              <select class="form-control">
+                <option>Selecciona...</option>
+                <option>Obra nueva</option>
+                <option>Viviendas</option>
+                <option>Habitación</option>
+                <option>Oficinas</option>
+                <option>Locales o naves</option>
+                <option>Garajes</option>
+                <option>Trasteros</option>
+                <option>Edificios</option>
+                <option>Terrenos</option>
+              </select>
+            </div>
+
+            <div class="col-6">
+              <input type="text" class="form-control" id="location" aria-describedby="locationHelp"
+                placeholder="Escribe dónde buscas">
+              <small id="location" class="form-text text-muted">
+                También puedes buscar por característica,teléfono...
+              </small>
+            </div>
+
+            <div class="col-2">
+              <button class="btn btn-light" type="submit"><strong>Buscar</strong></button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
     </div>
+    //-->
+  </div>
   </div>
 
   </div>
+</div>
 
-  <footer class="d-flex flex-column footer font-small">
-    <div class="footer-copyright text-center py-3 bg-light">
-      <a>Oportunista Copyright &copy; 2019-2019</a>
+  <footer class=" bg bg-light d-flex flex-column footer font-small">
+    <div class="footer-copyright text-center py-3 bg-light ">
+     
+      <p class="text-muted">
+        <b>Sobre oportunista</b>
+    </p>
+
+    <ul class="list-unstyled">
+        <li><a href="{% url 'idealista_app:quienessomos' %}" class="text-info"> Quiénes somos</a></li>
+    </ul>
+    <a>Oportunista Copyright &copy; 2019-2019</a>
     </div>
   </footer>
 
@@ -207,16 +266,16 @@
 
 {% block script %}
 <script>
-    var ids = ["#define", "#location", "#description", "#contact-data", "#image"]
+  var ids = ["#define", "#location", "#description", "#contact-data", "#image"]
 
 
-    function redirect(that){
-      var field1ST= document.getElementById('primer').value;
-      var fiell2ND= document.getElementById('segon').value;
-      var fiell3RD= document.getElementById('tercer').value;
-      window.location.replace("/posts"+"/"+field1ST.toLowerCase()+"/"+fiell2ND.toLowerCase()+"/"+fiell3RD.toLowerCase());
-   
-    }
+  function redirect(that) {
+    var field1ST = document.getElementById('primer').value;
+    var fiell2ND = document.getElementById('segon').value;
+    var fiell3RD = document.getElementById('tercer').value;
+    window.location.replace("/posts" + "/" + field1ST.toLowerCase() + "/" + fiell2ND.toLowerCase() + "/" + fiell3RD.toLowerCase());
+
+  }
 
 </script>
 {% endblock %}
